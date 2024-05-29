@@ -272,7 +272,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: app
-      Handler: com.nashss.se.PrinterProject.lambda.GetModelLambda::handleRequest
+      Handler: printerproject.lambda.GetModelLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
