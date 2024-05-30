@@ -55,10 +55,10 @@ public class ModelDao {
      * @param keyword The keyword to look up
      * @return A list of Models found, if any
      */
-    public List<Model> loadModelsForKeyword(String keyword, Boolean isActive) {
+    public List<Model> loadModelsForKeyword(String keyword, String isActive) {
         Map<String, AttributeValue> valueMap = new HashMap<>();
         valueMap.put(":keyword", new AttributeValue(keyword));
-        valueMap.put(":isActive", new AttributeValue().withBOOL(isActive));
+        valueMap.put(":isActive", new AttributeValue(isActive));
         DynamoDBQueryExpression<Model> queryExpression = new DynamoDBQueryExpression<Model>()
                 .withIndexName("ModelsSortByKeywordIndex")
                 .withConsistentRead(false)

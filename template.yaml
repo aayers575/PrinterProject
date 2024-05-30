@@ -265,7 +265,7 @@ Resources:
         - AttributeName: "modelId"
           AttributeType: "S"
         - AttributeName: "isActive"
-          AttributeType: "BOOL"
+          AttributeType: "S"
         - AttributeName: "keyword"
           AttributeType: "S"
       KeySchema:

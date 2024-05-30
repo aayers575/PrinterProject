@@ -9,7 +9,7 @@ public class Model {
     private String modelId;
     private String keyword;
     private byte[] preview;
-    private Boolean isActive;
+    private String isActive;
     private Integer materialUsed;
 
 
@@ -41,12 +41,11 @@ public class Model {
     }
 
     @DynamoDBIndexRangeKey(globalSecondaryIndexName = "ModelsSortByKeywordIndex", attributeName = "isActive")
-    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.BOOL)
-    public Boolean getIsActive() {
+    public String getIsActive() {
         return isActive;
     }
 
-    public void setIsExpendable(Boolean active) {
+    public void setIsActive(String active) {
         isActive = active;
     }
 
