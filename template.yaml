@@ -268,10 +268,6 @@ Resources:
           AttributeType: "BOOL"
         - AttributeName: "keyword"
           AttributeType: "S"
-        - AttributeName: "preview"
-          AttributeType: "B"
-        - AttributeName: "materialUsed"
-          AttributeType: "N"
       KeySchema:
         - AttributeName: "modelId"
           KeyType: "HASH"
