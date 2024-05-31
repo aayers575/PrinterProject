@@ -4,7 +4,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 import java.util.Objects;
 
-@DynamoDBTable(tableName = "ModelTable")
+@DynamoDBTable(tableName = "ModelsTable")
 public class Model {
     private String modelId;
     private String keyword;

@@ -251,14 +251,12 @@ Resources:
           Properties:
             Path: /models/{modelId}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
 
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------
   
-  ModelTable:
+  ModelsTable:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
@@ -272,7 +270,7 @@ Resources:
         - AttributeName: "modelId"
           KeyType: "HASH"
       BillingMode: PAY_PER_REQUEST
-      TableName: "ModelTable"
+      TableName: "ModelsTable"
       GlobalSecondaryIndexes:
         - IndexName: "ModelsSortByKeywordIndex"
           KeySchema:
