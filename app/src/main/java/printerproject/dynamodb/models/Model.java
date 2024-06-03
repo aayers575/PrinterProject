@@ -22,7 +22,7 @@ public class Model {
         this.modelId = modelId;
     }
 
-    @DynamoDBIndexHashKey(globalSecondaryIndexName = "TasksSortByAssigneeIndex", attributeName = "keyword")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "ModelsSortByKeywordIndex", attributeName = "keyword")
     public String getKeyword() {
         return keyword;
     }
