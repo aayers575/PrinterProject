@@ -251,6 +251,9 @@ Resources:
           Properties:
             Path: /models/{modelId}
             Method: get
+            Auth:
+              Authorizer: 'NONE'
+
 
   #-----------------------------------------------------
   # DynamoDB Configuration
