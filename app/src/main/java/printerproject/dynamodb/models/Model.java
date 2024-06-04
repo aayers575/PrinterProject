@@ -54,7 +54,7 @@ public class Model {
         return materialUsed;
     }
 
-    public void setInventoryCount(Integer materialUsed) {
+    public void setMaterialUsed(Integer materialUsed) {
         this.materialUsed = materialUsed;
     }
 

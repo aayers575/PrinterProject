@@ -4,7 +4,9 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import dagger.Component;
 import printerproject.activity.modelActivities.DeleteModelActivity;
 import printerproject.activity.modelActivities.GetModelActivity;
+import printerproject.activity.modelActivities.UpdateModelActivity;
 import printerproject.requests.modelRequests.DeleteModelRequest;
+import printerproject.requests.modelRequests.UpdateModelRequest;
 
 import javax.inject.Singleton;
 
@@ -22,4 +24,6 @@ public interface ServiceComponent {
     GetModelActivity provideGetModelActivity();
 
     DeleteModelActivity provideDeleteModelActivity();
+
+    UpdateModelActivity provideUpdateModelActivity();
 }
