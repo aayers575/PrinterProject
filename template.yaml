@@ -251,8 +251,26 @@ Resources:
           Properties:
             Path: /models/{modelId}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
+
+  DeleteModelLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.DeleteModelLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /models/{modelId}
+            Method: delete
 
 
   #-----------------------------------------------------
