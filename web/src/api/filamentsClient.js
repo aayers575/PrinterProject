@@ -9,12 +9,12 @@ import Authenticator from "./authenticator";
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Mix-ins
  * https://javascript.info/mixins
   */
-export default class MaterialsClient extends BindingClass {
+export default class ModelsClient extends BindingClass {
 
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'editMaterial', 'addMaterial', 'deleteMaterial', 'getSingleMaterial', 'getMultipleMaterials'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'editModel', 'addModel', 'deleteModel', 'getSingleModel', 'getMultipleModels'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -73,12 +73,12 @@ export default class MaterialsClient extends BindingClass {
     //---------------------------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------------------------------
 
-    async editMaterial(orgId, materialId, cost, inventoryCount, isExpendable, name, errorCallback) {
+    async editModel(orgId, modelId, cost, inventoryCount, isExpendable, name, errorCallback) {
         try {
-            const token = await this.getTokenOrThrow("Only authenticated users can edit materials");
-            const response = await this.axiosClient.put(`organizations/${orgId}/materials/${materialId}`, {
+            const token = await this.getTokenOrThrow("Only authenticated users can edit models");
+            const response = await this.axiosClient.put(`organizations/${orgId}/models/${modelId}`, {
                             orgId: orgId,
-                            materialId: materialId,
+                            modelId: modelId,
                             cost: cost,
                             inventoryCount: inventoryCount,
                             isExpendable: isExpendable,
@@ -90,7 +90,7 @@ export default class MaterialsClient extends BindingClass {
                         });
 
           
-            return response.data.material;
+            return response.data.model;
 
 
         } catch (error) {
@@ -98,10 +98,10 @@ export default class MaterialsClient extends BindingClass {
         }
     }
 
-        async addMaterial(orgId, cost, inventoryCount, isExpendable, name, errorCallback) {
+        async addModel(orgId, cost, inventoryCount, isExpendable, name, errorCallback) {
             try {
-                const token = await this.getTokenOrThrow("Only authenticated users can add materials");
-                const response = await this.axiosClient.post(`material`, {
+                const token = await this.getTokenOrThrow("Only authenticated users can add models");
+                const response = await this.axiosClient.post(`model`, {
                                 orgId: orgId,
                                 cost: cost,
                                 inventoryCount: inventoryCount,
@@ -113,7 +113,7 @@ export default class MaterialsClient extends BindingClass {
                                 }
                             });
 
-                return response.data.material;
+                return response.data.model;
 
 
             } catch (error) {
@@ -121,45 +121,45 @@ export default class MaterialsClient extends BindingClass {
             }
         }
 
-    async deleteMaterial(orgId, materialId, cost, inventoryCount, isExpendable, name, errorCallback) {
+    async deleteModel(orgId, modelId, cost, inventoryCount, isExpendable, name, errorCallback) {
         try {
-            const token = await this.getTokenOrThrow("Only authenticated users can edit materials");
-            const response = await this.axiosClient.delete(`materials/${materialId}/organizations/${orgId}`, {
+            const token = await this.getTokenOrThrow("Only authenticated users can edit models");
+            const response = await this.axiosClient.delete(`models/${modelId}/organizations/${orgId}`, {
                             orgId: orgId,
-                            materialId: materialId,
+                            modelId: modelId,
                         }, {
                             headers: {
                                 Authorization: `Bearer ${token}`
                             }
                         });
-            return response.data.material;
+            return response.data.model;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
     }
 
-    async getSingleMaterial(orgId, materialId, errorCallback) {
+    async getSingleModel(orgId, modelId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Encountered token error trying to call Task endpoint.");
-            const response = await this.axiosClient.get(`organizations/${orgId}/materials/${materialId}`, {
+            const response = await this.axiosClient.get(`organizations/${orgId}/models/${modelId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }});
-            return response.data.material;
+            return response.data.model;
 
         } catch (error) {
             this.handleError(error, errorCallback)
         }
     }
 
-    async getMultipleMaterials(orgId, errorCallback) {
+    async getMultipleModels(orgId, errorCallback) {
         try {
-            const token = await this.getTokenOrThrow("Encountered token error trying to call Material endpoint.");
-            const response = await this.axiosClient.get(`organizations/${orgId}/materials`, {
+            const token = await this.getTokenOrThrow("Encountered token error trying to call Model endpoint.");
+            const response = await this.axiosClient.get(`organizations/${orgId}/models`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }});
-            return response.data.materials;
+            return response.data.models;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
