@@ -206,18 +206,21 @@ Resources:
             Statement:
             - Effect: Allow
               Action: dynamodb:*
-              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/ModelTable"
+              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/ModelsTable"
             - Effect: Allow
               Action: dynamodb:query
-              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/ModelTable/index/ModelsSortByKeywordIndex"
+              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/ModelsTable/index/ModelsSortByKeywordIndex"
                 
-        - PolicyName: 'AccessFilamentTable'
+        - PolicyName: 'AccessFilamentsTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
             - Effect: Allow
               Action: dynamodb:*
-              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/filament"
+              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/FilamentsTable"
+            - Effect: Allow
+              Action: dynamodb:query
+              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/FilamentsTable/index/FilamentsSortByKeywordIndex"
 
         - PolicyName: 'AccessVotesTable'
           PolicyDocument:
@@ -225,7 +228,7 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: dynamodb:*
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/votes"
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/VotesTable"
 
 
   #-----------------------------------------------------
