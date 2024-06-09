@@ -1,7 +1,7 @@
 
 import TaskClient from '../api/taskClient';
 import UserRoleClient from '../api/userRoleClient';
-import MaterialsClient from '../api/materialsClient';
+import FilamentsClient from '../api/filamentsClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
@@ -47,7 +47,7 @@ class TaskDetailScripts extends BindingClass {
         this.header.addHeaderToPage();
         this.taskClient = new TaskClient();
         this.userRoleClient = new UserRoleClient();
-        this.materialsClient = new MaterialsClient();
+        this.filamentsClient = new FilamentsClient();
         this.startupActivities();
     }
 
@@ -143,7 +143,7 @@ class TaskDetailScripts extends BindingClass {
     }
 
     async populateMaterialList() {
-        const materialList = await this.materialsClient.getMultipleMaterials(this.dataStore.get(ORG_ID_KEY))
+        const materialList = await this.filamentsClient.getMultipleMaterials(this.dataStore.get(ORG_ID_KEY))
         this.dataStore.set([MATERIAL_LIST_KEY], materialList)
         const select = document.getElementById('materials');
         if (materialList != null) {
@@ -162,7 +162,7 @@ class TaskDetailScripts extends BindingClass {
         var materialList = this.dataStore.get(TASK_OBJECT_KEY).materialsList;
         if(materialList != null) {
         for(const material of materialList) {
-                const fullMaterial = await this.materialsClient.getSingleMaterial(material.orgId, material.materialId)
+                const fullMaterial = await this.filamentsClient.getSingleMaterial(material.orgId, material.materialId)
                 if (fullMaterial != null) {
                     var row = newTableBody.insertRow(-1);
                     var cell1 = row.insertCell(0);

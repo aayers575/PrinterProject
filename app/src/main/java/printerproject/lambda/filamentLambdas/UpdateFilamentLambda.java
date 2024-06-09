@@ -1,30 +1,33 @@
-package printerproject.lambda;
+package printerproject.lambda.filamentLambdas;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import printerproject.requests.modelRequests.UpdateModelRequest;
-import printerproject.results.modelResults.UpdateModelResult;
+import printerproject.lambda.LambdaActivityRunner;
+import printerproject.lambda.LambdaRequest;
+import printerproject.lambda.LambdaResponse;
+import printerproject.requests.filamentRequests.UpdateFilamentRequest;
+import printerproject.results.filamentResults.UpdateFilamentResult;
 
-public class UpdateModelLambda
-        extends LambdaActivityRunner<UpdateModelRequest, UpdateModelResult>
-        implements RequestHandler<LambdaRequest<UpdateModelRequest>, LambdaResponse> {
+public class UpdateFilamentLambda
+        extends LambdaActivityRunner<UpdateFilamentRequest, UpdateFilamentResult>
+        implements RequestHandler<LambdaRequest<UpdateFilamentRequest>, LambdaResponse> {
 
     @Override
-    public LambdaResponse handleRequest(LambdaRequest<UpdateModelRequest> input, Context context) {
+    public LambdaResponse handleRequest(LambdaRequest<UpdateFilamentRequest> input, Context context) {
         return super.runActivity(
                 () -> {
-                    UpdateModelRequest unauthenticatedRequest = input.fromBody(UpdateModelRequest.class);
+                    UpdateFilamentRequest unauthenticatedRequest = input.fromBody(UpdateFilamentRequest.class);
                     return input.fromPath(path ->
-                            UpdateModelRequest.builder()
-                                    .withModelId(path.get("modelId"))
+                            UpdateFilamentRequest.builder()
+                                    .withFilamentId(path.get("filamentId"))
                                     .withIsActive(unauthenticatedRequest.getIsActive())
-                                    .withKeyword(unauthenticatedRequest.getKeyword())
-                                    .withPreview(unauthenticatedRequest.getPreview())
-                                    .withMaterialUsed(unauthenticatedRequest.getMaterialUsed())
+                                    .withColor(unauthenticatedRequest.getColor())
+                                    .withMaterial(unauthenticatedRequest.getMaterial())
+                                    .withMaterialRemaining(unauthenticatedRequest.getMaterialRemaining())
                                     .build());
                 },
                 (request, serviceComponent) ->
-                        serviceComponent.provideUpdateModelActivity().handleRequest(request)
+                        serviceComponent.provideUpdateFilamentActivity().handleRequest(request)
         );
     }
 }

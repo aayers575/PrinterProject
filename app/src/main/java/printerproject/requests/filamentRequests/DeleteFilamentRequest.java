@@ -1,27 +1,27 @@
-package printerproject.requests.modelRequests;
+package printerproject.requests.filamentRequests;
 
-public class DeleteModelRequest {
-    private final String modelId;
+public class DeleteFilamentRequest {
+    private final String filamentId;
 
-    private DeleteModelRequest(String modelId) {
-        this.modelId = modelId;
+    private DeleteFilamentRequest(String filamentId) {
+        this.filamentId = filamentId;
     }
 
-    public String getModelId() {
-        return modelId;
+    public String getFilamentId() {
+        return filamentId;
     }
 
     //CHECKSTYLE:OFF:BUILDER
     public static  Builder builder() { return new Builder(); }
 
     public static class Builder {
-        private String modelId;
+        private String filamentId;
 
-        public Builder withModelId(String modelId) {
-            this.modelId = modelId;
+        public Builder withFilamentId(String filamentId) {
+            this.filamentId = filamentId;
             return this;
         }
 
-        public DeleteModelRequest build() { return new DeleteModelRequest(modelId); }
+        public DeleteFilamentRequest build() { return new DeleteFilamentRequest(filamentId); }
     }
 }

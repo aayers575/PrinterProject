@@ -1,33 +1,32 @@
-package printerproject.requests.modelRequests;
+package printerproject.requests.filamentRequests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-@JsonDeserialize(builder = CreateModelRequest.Builder.class)
-public class CreateModelRequest {
-    private String modelId;
+@JsonDeserialize(builder = CreateFilamentRequest.Builder.class)
+public class CreateFilamentRequest {
     private String isActive;
-    private String keyword;
-    private byte[] preview;
-    private Integer materialUsed;
+    private String color;
+    private String material;
+    private Integer materialRemaining;
 
 
-    private CreateModelRequest(String isActive, String keyword, byte[] preview, Integer materialUsed) {
+    private CreateFilamentRequest(String isActive, String color, String material, Integer materialRemaining) {
         this.isActive = isActive;
-        this.keyword = keyword;
-        this.preview = preview;
-        this.materialUsed = materialUsed;
+        this.color = color;
+        this.material = material;
+        this.materialRemaining = materialRemaining;
     }
 
     public String getIsActive() {
         return isActive;
     }
 
-    public String getKeyword() { return keyword; }
+    public String getColor() { return color; }
 
-    public byte[] getPreview() { return preview; }
+    public String getMaterial() { return material; }
 
-    public Integer getMaterialUsed() { return materialUsed; }
+    public Integer getMaterialRemaining() { return materialRemaining; }
 
     //CHECKSTYLE:OFF:BUILDER
     public static  Builder builder() { return new Builder(); }
@@ -35,30 +34,30 @@ public class CreateModelRequest {
     @JsonPOJOBuilder
     public static class Builder {
         private String isActive;
-        private String keyword;
-        private byte[] preview;
-        private Integer materialUsed;
+        private String color;
+        private String material;
+        private Integer materialRemaining;
 
         public Builder withIsActive(String isActive) {
             this.isActive = isActive;
             return this;
         }
 
-        public Builder withKeyword(String keyword) {
-            this.keyword = keyword;
+        public Builder withColor(String color) {
+            this.color = color;
             return this;
         }
 
-        public Builder withPreview(byte[] preview) {
-            this.preview = preview;
+        public Builder withMaterial(String material) {
+            this.material = material;
             return this;
         }
 
-        public Builder withMaterialUsed(Integer materialUsed) {
-            this.materialUsed = materialUsed;
+        public Builder withMaterialRemaining(Integer materialRemaining) {
+            this.materialRemaining = materialRemaining;
             return  this;
         }
 
-        public CreateModelRequest build() { return new CreateModelRequest(isActive, keyword, preview, materialUsed); }
+        public CreateFilamentRequest build() { return new CreateFilamentRequest(isActive, color, material, materialRemaining); }
     }
 }

@@ -1,26 +1,26 @@
-package printerproject.lambda;
+package printerproject.lambda.filamentLambdas;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import printerproject.lambda.LambdaActivityRunner;
 import printerproject.lambda.LambdaRequest;
 import printerproject.lambda.LambdaResponse;
-import printerproject.requests.modelRequests.GetModelsForKeywordRequest;
-import printerproject.results.modelResults.GetModelsForKeywordResult;
+import printerproject.requests.filamentRequests.GetFilamentsForColorRequest;
+import printerproject.results.filamentResults.GetFilamentsForColorResult;
 
-public class GetModelsForKeywordLambda
-        extends LambdaActivityRunner<GetModelsForKeywordRequest, GetModelsForKeywordResult>
-        implements RequestHandler<LambdaRequest<GetModelsForKeywordRequest>, LambdaResponse> {
+public class GetFilamentsForColorLambda
+        extends LambdaActivityRunner<GetFilamentsForColorRequest, GetFilamentsForColorResult>
+        implements RequestHandler<LambdaRequest<GetFilamentsForColorRequest>, LambdaResponse> {
 
     @Override
-    public LambdaResponse handleRequest(LambdaRequest<GetModelsForKeywordRequest> input, Context context) {
+    public LambdaResponse handleRequest(LambdaRequest<GetFilamentsForColorRequest> input, Context context) {
         return super.runActivity(
                 () -> input.fromPath(path ->
-                        GetModelsForKeywordRequest.builder()
-                                .withKeyword(path.get("keyword"))
+                        GetFilamentsForColorRequest.builder()
+                                .withColor(path.get("color"))
                                 .build()),
                 (request, serviceComponent) ->
-                        serviceComponent.provideGetModelsForKeywordActivity().handleRequest(request)
+                        serviceComponent.provideGetFilamentsForColorActivity().handleRequest(request)
         );
     }
 }

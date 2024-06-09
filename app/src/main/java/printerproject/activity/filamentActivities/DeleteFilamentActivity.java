@@ -1,39 +1,39 @@
-package printerproject.activity.modelActivities;
+package printerproject.activity.filamentActivities;
 
-import printerproject.dynamodb.ModelDao;
-import printerproject.dynamodb.models.Model;
-import printerproject.requests.modelRequests.DeleteModelRequest;
-import printerproject.results.modelResults.DeleteModelResult;
+import printerproject.dynamodb.FilamentDao;
+import printerproject.dynamodb.models.Filament;
+import printerproject.requests.filamentRequests.DeleteFilamentRequest;
+import printerproject.results.filamentResults.DeleteFilamentResult;
 
 import javax.inject.Inject;
 
-public class DeleteModelActivity {
-    private final ModelDao modelDao;
+public class DeleteFilamentActivity {
+    private final FilamentDao filamentDao;
 
     /**
-     * Instantiates a new DeleteModelActivity object.
+     * Instantiates a new DeleteFilamentActivity object.
      *
-     * @param modelDao ModelDao to access the playlist table.
+     * @param filamentDao FilamentDao to access the playlist table.
      */
     @Inject
-    public DeleteModelActivity(ModelDao modelDao) { this.modelDao = modelDao; }
+    public DeleteFilamentActivity(FilamentDao filamentDao) { this.filamentDao = filamentDao; }
 
     /**
-     * This method handles the incoming request by deleting a model from the database, if it exists.
+     * This method handles the incoming request by deleting a filament from the database, if it exists.
      * <p>
-     * It then returns the deleted model.
+     * It then returns the deleted filament.
      *
-     * @param deleteModelRequest request object containing the orgId and modelId
-     * @return GetModelResult result object containing the API defined {@link Model}
+     * @param deleteFilamentRequest request object containing the orgId and filamentId
+     * @return GetFilamentResult result object containing the API defined {@link Filament}
      */
 
-    public DeleteModelResult handleRequest(final DeleteModelRequest deleteModelRequest) {
+    public DeleteFilamentResult handleRequest(final DeleteFilamentRequest deleteFilamentRequest) {
 
-        Model model = new Model();
-        model.setModelId(deleteModelRequest.getModelId());
-        modelDao.deleteModel(model);
-        return DeleteModelResult.builder()
-                .withModel(model)
+        Filament filament = new Filament();
+        filament.setFilamentId(deleteFilamentRequest.getFilamentId());
+        filamentDao.deleteFilament(filament);
+        return DeleteFilamentResult.builder()
+                .withFilament(filament)
                 .build();
     }
 

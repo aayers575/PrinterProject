@@ -8,11 +8,11 @@ public class UpdateModelRequest {
     private String modelId;
     private String isActive;
     private String keyword;
-    private byte[] preview;
+    private String preview;
     private Integer materialUsed;
     
 
-    private UpdateModelRequest(String modelId, String isActive, String keyword, byte[] preview, Integer materialUsed) {
+    private UpdateModelRequest(String modelId, String isActive, String keyword, String preview, Integer materialUsed) {
         this.modelId = modelId;
         this.isActive = isActive;
         this.keyword = keyword;
@@ -30,7 +30,7 @@ public class UpdateModelRequest {
 
     public String getKeyword() { return keyword; }
 
-    public byte[] getPreview() { return preview; }
+    public String getPreview() { return preview; }
 
     public Integer getMaterialUsed() { return materialUsed; }
 
@@ -42,7 +42,7 @@ public class UpdateModelRequest {
         private String modelId;
         private String isActive;
         private String keyword;
-        private byte[] preview;
+        private String preview;
         private Integer materialUsed;
 
         public Builder withModelId(String modelId) {
@@ -60,7 +60,7 @@ public class UpdateModelRequest {
             return this;
         }
 
-        public Builder withPreview(byte[] preview) {
+        public Builder withPreview(String preview) {
             this.preview = preview;
             return this;
         }

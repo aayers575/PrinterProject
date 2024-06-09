@@ -1,51 +1,51 @@
-package printerproject.activity.modelActivities;
+package printerproject.activity.filamentActivities;
 
-import printerproject.dynamodb.ModelDao;
-import printerproject.dynamodb.models.Model;
-import printerproject.requests.modelRequests.UpdateModelRequest;
-import printerproject.results.modelResults.UpdateModelResult;
+import printerproject.dynamodb.FilamentDao;
+import printerproject.dynamodb.models.Filament;
+import printerproject.requests.filamentRequests.UpdateFilamentRequest;
+import printerproject.results.filamentResults.UpdateFilamentResult;
 
 import javax.inject.Inject;
 
 /**
- * Implementation of the UpdateModelActivity for the Model endpoint.
+ * Implementation of the UpdateFilamentActivity for the Filament endpoint.
  *
- * This API allows the customer to interact with Model objects in the database.
+ * This API allows the customer to interact with Filament objects in the database.
  */
-public class UpdateModelActivity {
-    private final ModelDao modelDao;
+public class UpdateFilamentActivity {
+    private final FilamentDao filamentDao;
 
     /**
-     * Instantiates a new GetModelActivity object.
+     * Instantiates a new GetFilamentActivity object.
      *
-     * @param modelDao ModelDao to access the playlist table.
+     * @param filamentDao FilamentDao to access the playlist table.
      */
     @Inject
-    public UpdateModelActivity(ModelDao modelDao) { this.modelDao = modelDao; }
+    public UpdateFilamentActivity(FilamentDao filamentDao) { this.filamentDao = filamentDao; }
 
     /**
-     * This method handles the incoming request by checking to see if an existing model exists, then replacing it with the provided new content.
+     * This method handles the incoming request by checking to see if an existing filament exists, then replacing it with the provided new content.
      * <p>
-     * It then returns the new model.
+     * It then returns the new filament.
      * <p>
-     * If the model does not exist on the database, this method will propagate a ModelNotFoundException.
-     * If either orgId or modelId is null, this method will throw an invalid attribute exception.
+     * If the filament does not exist on the database, this method will propagate a FilamentNotFoundException.
+     * If either orgId or filamentId is null, this method will throw an invalid attribute exception.
      *
-     * @param updateModelRequest request object containing the orgId and modelId
-     * @return UpdateModelResult result object containing the API defined {@link Model}
+     * @param updateFilamentRequest request object containing the orgId and filamentId
+     * @return UpdateFilamentResult result object containing the API defined {@link Filament}
      */
 
-    public UpdateModelResult handleRequest(final UpdateModelRequest updateModelRequest) {
-        Model updatedmodel = modelDao.loadSingleModel(updateModelRequest.getModelId());
-        updatedmodel.setModelId(updateModelRequest.getModelId());
-        updatedmodel.setKeyword(updateModelRequest.getKeyword());
-        updatedmodel.setIsActive(updateModelRequest.getIsActive());
-        updatedmodel.setPreview(updateModelRequest.getPreview());
-        updatedmodel.setMaterialUsed(updateModelRequest.getMaterialUsed());
+    public UpdateFilamentResult handleRequest(final UpdateFilamentRequest updateFilamentRequest) {
+        Filament updatedfilament = filamentDao.loadSingleFilament(updateFilamentRequest.getFilamentId());
+        updatedfilament.setFilamentId(updateFilamentRequest.getFilamentId());
+        updatedfilament.setColor(updateFilamentRequest.getColor());
+        updatedfilament.setIsActive(updateFilamentRequest.getIsActive());
+        updatedfilament.setMaterial(updateFilamentRequest.getMaterial());
+        updatedfilament.setMaterialRemaining(updateFilamentRequest.getMaterialRemaining());
 
-        modelDao.writeModel(updatedmodel);
-        return UpdateModelResult.builder()
-                .withModel(updatedmodel)
+        filamentDao.writeFilament(updatedfilament);
+        return UpdateFilamentResult.builder()
+                .withFilament(updatedfilament)
                 .build();
     }
 

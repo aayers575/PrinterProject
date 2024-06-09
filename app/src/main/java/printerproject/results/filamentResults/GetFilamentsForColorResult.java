@@ -1,29 +1,29 @@
 package printerproject.results.filamentResults;
 
-import printerproject.dynamodb.models.Model;
+import printerproject.dynamodb.models.Filament;
 
 import java.util.List;
 
-public class GetModelsForKeywordResult {
-    private final List<Model> models;
+public class GetFilamentsForColorResult {
+    private final List<Filament> filaments;
 
-    private GetModelsForKeywordResult(List<Model> models) { this.models = models; }
+    private GetFilamentsForColorResult(List<Filament> filaments) { this.filaments = filaments; }
 
-    public List<Model> getModels() {
-        return models;
+    public List<Filament> getFilaments() {
+        return filaments;
     }
 
     //CHECKSTYLE:OFF:Builder
     public static Builder builder() { return new Builder(); }
 
     public static class Builder {
-        private List<Model> models;
+        private List<Filament> filaments;
 
-        public Builder withModelList(List<Model> models) {
-            this.models = models;
+        public Builder withFilamentList(List<Filament> filaments) {
+            this.filaments = filaments;
             return this;
         }
 
-        public GetModelsForKeywordResult build() { return new GetModelsForKeywordResult(models); }
+        public GetFilamentsForColorResult build() { return new GetFilamentsForColorResult(filaments); }
     }
 }

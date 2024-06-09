@@ -1,64 +1,64 @@
 package printerproject.activity.filamentActivities;
 
-import printerproject.dynamodb.ModelDao;
-import printerproject.dynamodb.models.Model;
-import printerproject.exceptions.ModelNotFoundException;
-import printerproject.requests.modelRequests.CreateModelRequest;
-import printerproject.results.modelResults.CreateModelResult;
+import printerproject.dynamodb.FilamentDao;
+import printerproject.dynamodb.models.Filament;
+import printerproject.exceptions.FilamentNotFoundException;
+import printerproject.requests.filamentRequests.CreateFilamentRequest;
+import printerproject.results.filamentResults.CreateFilamentResult;
 
 import javax.inject.Inject;
 import java.util.UUID;
 
 /**
- * Implementation of the CreateModelActivity for the Model endpoint.
+ * Implementation of the CreateFilamentActivity for the Filament endpoint.
  *
- * This API allows the customer to interact with Model objects in the database.
+ * This API allows the customer to interact with Filament objects in the database.
  */
-public class CreateModelActivity {
-    private final ModelDao modelDao;
+public class CreateFilamentActivity {
+    private final FilamentDao filamentDao;
 
     /**
-     * Instantiates a new GetModelActivity object.
+     * Instantiates a new GetFilamentActivity object.
      *
-     * @param modelDao ModelDao to access the playlist table.
+     * @param filamentDao FilamentDao to access the playlist table.
      */
     @Inject
-    public CreateModelActivity(ModelDao modelDao) { this.modelDao = modelDao; }
+    public CreateFilamentActivity(FilamentDao filamentDao) { this.filamentDao = filamentDao; }
 
     /**
-     * This method handles the incoming request by checking to see if an existing model exists, then replacing it with the provided new content.
+     * This method handles the incoming request by checking to see if an existing filament exists, then replacing it with the provided new content.
      * <p>
-     * It then returns the new model.
+     * It then returns the new filament.
      * <p>
-     * If the model does not exist on the database, this method will propagate a ModelNotFoundException.
-     * If either orgId or modelId is null, this method will throw an invalid attribute exception.
+     * If the filament does not exist on the database, this method will propagate a FilamentNotFoundException.
+     * If either orgId or filamentId is null, this method will throw an invalid attribute exception.
      *
-     * @param createModelRequest request object containing the orgId and modelId
-     * @return CreateModelResult result object containing the API defined {@link Model}
+     * @param createFilamentRequest request object containing the orgId and filamentId
+     * @return CreateFilamentResult result object containing the API defined {@link Filament}
      */
 
-    public CreateModelResult handleRequest(final CreateModelRequest createModelRequest) {
-        Model newModel = new Model();
-        newModel.setModelId(UUID.randomUUID().toString());
-        while (modelIdExists(newModel)) {
-            newModel.setModelId(UUID.randomUUID().toString());
+    public CreateFilamentResult handleRequest(final CreateFilamentRequest createFilamentRequest) {
+        Filament newFilament = new Filament();
+        newFilament.setFilamentId(UUID.randomUUID().toString());
+        while (filamentIdExists(newFilament)) {
+            newFilament.setFilamentId(UUID.randomUUID().toString());
         }
-        newModel.setKeyword(createModelRequest.getKeyword());
-        newModel.setIsActive(createModelRequest.getIsActive());
-        newModel.setPreview(createModelRequest.getPreview());
-        newModel.setMaterialUsed(createModelRequest.getMaterialUsed());
+        newFilament.setColor(createFilamentRequest.getColor());
+        newFilament.setIsActive(createFilamentRequest.getIsActive());
+        newFilament.setMaterial(createFilamentRequest.getMaterial());
+        newFilament.setMaterialRemaining(createFilamentRequest.getMaterialRemaining());
 
-        modelDao.writeModel(newModel);
-        return CreateModelResult.builder()
-                .withModel(newModel)
+        filamentDao.writeFilament(newFilament);
+        return CreateFilamentResult.builder()
+                .withFilament(newFilament)
                 .build();
     }
 
-    private boolean modelIdExists(Model model) {
+    private boolean filamentIdExists(Filament filament) {
         try {
-            modelDao.loadSingleModel(model.getModelId());
+            filamentDao.loadSingleFilament(filament.getFilamentId());
             return true;
-        } catch (ModelNotFoundException e) {
+        } catch (FilamentNotFoundException e) {
             return false;
         }
     }

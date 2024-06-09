@@ -1,52 +1,52 @@
-package printerproject.requests.modelRequests;
+package printerproject.requests.filamentRequests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-@JsonDeserialize(builder = UpdateModelRequest.Builder.class)
-public class UpdateModelRequest {
-    private String modelId;
+@JsonDeserialize(builder = UpdateFilamentRequest.Builder.class)
+public class UpdateFilamentRequest {
+    private String filamentId;
     private String isActive;
-    private String keyword;
-    private byte[] preview;
-    private Integer materialUsed;
+    private String color;
+    private String material;
+    private Integer materialRemaining;
     
 
-    private UpdateModelRequest(String modelId, String isActive, String keyword, byte[] preview, Integer materialUsed) {
-        this.modelId = modelId;
+    private UpdateFilamentRequest(String filamentId, String isActive, String color, String material, Integer materialRemaining) {
+        this.filamentId = filamentId;
         this.isActive = isActive;
-        this.keyword = keyword;
-        this.preview = preview;
-        this.materialUsed = materialUsed;
+        this.color = color;
+        this.material = material;
+        this.materialRemaining = materialRemaining;
     }
 
-    public String getModelId() {
-        return modelId;
+    public String getFilamentId() {
+        return filamentId;
     }
 
     public String getIsActive() {
         return isActive;
     }
 
-    public String getKeyword() { return keyword; }
+    public String getColor() { return color; }
 
-    public byte[] getPreview() { return preview; }
+    public String getMaterial() { return material; }
 
-    public Integer getMaterialUsed() { return materialUsed; }
+    public Integer getMaterialRemaining() { return materialRemaining; }
 
     //CHECKSTYLE:OFF:BUILDER
     public static  Builder builder() { return new Builder(); }
 
     @JsonPOJOBuilder
     public static class Builder {
-        private String modelId;
+        private String filamentId;
         private String isActive;
-        private String keyword;
-        private byte[] preview;
-        private Integer materialUsed;
+        private String color;
+        private String material;
+        private Integer materialRemaining;
 
-        public Builder withModelId(String modelId) {
-            this.modelId = modelId;
+        public Builder withFilamentId(String filamentId) {
+            this.filamentId = filamentId;
             return this;
         }
 
@@ -55,21 +55,21 @@ public class UpdateModelRequest {
             return this;
         }
 
-        public Builder withKeyword(String keyword) {
-            this.keyword = keyword;
+        public Builder withColor(String color) {
+            this.color = color;
             return this;
         }
 
-        public Builder withPreview(byte[] preview) {
-            this.preview = preview;
+        public Builder withMaterial(String material) {
+            this.material = material;
             return this;
         }
 
-        public Builder withMaterialUsed(Integer materialUsed) {
-            this.materialUsed = materialUsed;
+        public Builder withMaterialRemaining(Integer materialRemaining) {
+            this.materialRemaining = materialRemaining;
             return  this;
         }
 
-        public UpdateModelRequest build() { return new UpdateModelRequest(modelId, isActive, keyword, preview, materialUsed); }
+        public UpdateFilamentRequest build() { return new UpdateFilamentRequest(filamentId, isActive, color, material, materialRemaining); }
     }
 }

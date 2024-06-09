@@ -9,12 +9,12 @@ import Authenticator from "./authenticator";
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Mix-ins
  * https://javascript.info/mixins
   */
-export default class FilamentsClient extends BindingClass {
+export default class ModelsClient extends BindingClass {
 
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'editFilament', 'addFilament', 'deleteFilament', 'getSingleFilament', 'getMultipleFilaments'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'editModel', 'addModel', 'deleteModel', 'getSingleModel', 'getMultipleModels'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -73,15 +73,15 @@ export default class FilamentsClient extends BindingClass {
     //---------------------------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------------------------------
 
-    async editFilament(filamentId, material, materialRemaining, isActive, color, errorCallback) {
+    async editModel(modelId, preview, materialUsed, isActive, keyword, errorCallback) {
         try {
-            const token = await this.getTokenOrThrow("Only authenticated users can edit filaments");
-            const response = await this.axiosClient.put(`filaments/${filamentId}`, {
-                            filamentId: filamentId,
-                            material: material,
-                            materialRemaining: materialRemaining,
+            const token = await this.getTokenOrThrow("Only authenticated users can edit models");
+            const response = await this.axiosClient.put(`models/${modelId}`, {
+                            modelId: modelId,
+                            preview: preview,
+                            materialUsed: materialUsed,
                             isActive: isActive,
-                            color: color
+                            keyword: keyword
                         }, {
                             headers: {
                                 Authorization: `Bearer ${token}`
@@ -89,7 +89,7 @@ export default class FilamentsClient extends BindingClass {
                         });
 
           
-            return response.data.filament;
+            return response.data.model;
 
 
         } catch (error) {
@@ -97,21 +97,21 @@ export default class FilamentsClient extends BindingClass {
         }
     }
 
-        async addFilament(material, materialRemaining, isActive, color, errorCallback) {
+        async addModel(preview, materialUsed, isActive, keyword, errorCallback) {
             try {
-                const token = await this.getTokenOrThrow("Only authenticated users can add filaments");
-                const response = await this.axiosClient.post(`filaments`, {
-                                material: material,
-                                materialRemaining: materialRemaining,
+                const token = await this.getTokenOrThrow("Only authenticated users can add models");
+                const response = await this.axiosClient.post(`models`, {
+                                preview: preview,
+                                materialUsed: materialUsed,
                                 isActive: isActive,
-                                color: color
+                                keyword: keyword
                             }, {
                                 headers: {
                                     Authorization: `Bearer ${token}`
                                 }
                             });
 
-                return response.data.filament;
+                return response.data.model;
 
 
             } catch (error) {
@@ -119,45 +119,45 @@ export default class FilamentsClient extends BindingClass {
             }
         }
 
-    async deleteFilament(orgId, filamentId, material, materialRemaining, isActive, color, errorCallback) {
+    async deleteModel(orgId, modelId, preview, materialUsed, isActive, keyword, errorCallback) {
         try {
-            const token = await this.getTokenOrThrow("Only authenticated users can edit filaments");
-            const response = await this.axiosClient.delete(`filaments/${filamentId}`, {
+            const token = await this.getTokenOrThrow("Only authenticated users can edit models");
+            const response = await this.axiosClient.delete(`models/${modelId}`, {
                             orgId: orgId,
-                            filamentId: filamentId,
+                            modelId: modelId,
                         }, {
                             headers: {
                                 Authorization: `Bearer ${token}`
                             }
                         });
-            return response.data.filament;
+            return response.data.model;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
     }
 
-    async getSingleFilament(orgId, filamentId, errorCallback) {
+    async getSingleModel(orgId, modelId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Encountered token error trying to call Task endpoint.");
-            const response = await this.axiosClient.get(`filaments/${filamentId}`, {
+            const response = await this.axiosClient.get(`models/${modelId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }});
-            return response.data.filament;
+            return response.data.model;
 
         } catch (error) {
             this.handleError(error, errorCallback)
         }
     }
 
-    async getMultipleFilaments(color, errorCallback) {
+    async getMultipleModels(keyword, errorCallback) {
         try {
-            const token = await this.getTokenOrThrow("Encountered token error trying to call Filament endpoint.");
-            const response = await this.axiosClient.get(`colors/${color}/filaments`, {
+            const token = await this.getTokenOrThrow("Encountered token error trying to call Model endpoint.");
+            const response = await this.axiosClient.get(`keywords/${keyword}/models`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }});
-            return response.data.filaments;
+            return response.data.models;
         } catch (error) {
             this.handleError(error, errorCallback)
         }

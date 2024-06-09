@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Model {
     private String modelId;
     private String keyword;
-    private byte[] preview;
+    private String preview;
     private String isActive;
     private Integer materialUsed;
 
@@ -32,11 +32,11 @@ public class Model {
     }
 
     @DynamoDBAttribute(attributeName = "preview")
-    public byte[] getPreview() {
+    public String getPreview() {
         return preview;
     }
 
-    public void setPreview(byte[] preview) {
+    public void setPreview(String preview) {
         this.preview = preview;
     }
 

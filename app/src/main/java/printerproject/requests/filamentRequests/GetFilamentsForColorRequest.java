@@ -1,27 +1,27 @@
-package printerproject.requests.modelRequests;
+package printerproject.requests.filamentRequests;
 
-public class GetModelsForKeywordRequest {
-    private final String keyword;
+public class GetFilamentsForColorRequest {
+    private final String color;
 
-    private GetModelsForKeywordRequest(String keyword) {
-        this.keyword = keyword;
+    private GetFilamentsForColorRequest(String color) {
+        this.color = color;
     }
 
-    public String getKeyword() {
-        return keyword;
+    public String getColor() {
+        return color;
     }
 
     //CHECKSTYLE:OFF:BUILDER
     public static  Builder builder() { return new Builder(); }
 
     public static class Builder {
-        private String keyword;
+        private String color;
 
-        public Builder withKeyword(String keyword) {
-            this.keyword = keyword;
+        public Builder withColor(String color) {
+            this.color = color;
             return this;
         }
 
-        public GetModelsForKeywordRequest build() { return new GetModelsForKeywordRequest(keyword); }
+        public GetFilamentsForColorRequest build() { return new GetFilamentsForColorRequest(color); }
     }
 }

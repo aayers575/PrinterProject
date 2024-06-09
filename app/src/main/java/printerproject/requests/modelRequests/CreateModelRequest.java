@@ -8,11 +8,11 @@ public class CreateModelRequest {
     private String modelId;
     private String isActive;
     private String keyword;
-    private byte[] preview;
+    private String preview;
     private Integer materialUsed;
 
 
-    private CreateModelRequest(String isActive, String keyword, byte[] preview, Integer materialUsed) {
+    private CreateModelRequest(String isActive, String keyword, String preview, Integer materialUsed) {
         this.isActive = isActive;
         this.keyword = keyword;
         this.preview = preview;
@@ -25,7 +25,7 @@ public class CreateModelRequest {
 
     public String getKeyword() { return keyword; }
 
-    public byte[] getPreview() { return preview; }
+    public String getPreview() { return preview; }
 
     public Integer getMaterialUsed() { return materialUsed; }
 
@@ -36,7 +36,7 @@ public class CreateModelRequest {
     public static class Builder {
         private String isActive;
         private String keyword;
-        private byte[] preview;
+        private String preview;
         private Integer materialUsed;
 
         public Builder withIsActive(String isActive) {
@@ -49,7 +49,7 @@ public class CreateModelRequest {
             return this;
         }
 
-        public Builder withPreview(byte[] preview) {
+        public Builder withPreview(String preview) {
             this.preview = preview;
             return this;
         }

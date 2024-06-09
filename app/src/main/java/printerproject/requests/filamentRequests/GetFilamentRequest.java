@@ -1,28 +1,28 @@
-package printerproject.requests.modelRequests;
+package printerproject.requests.filamentRequests;
 
-public class GetModelRequest {
-    private final String modelId;
+public class GetFilamentRequest {
+    private final String filamentId;
 
-    private GetModelRequest(String modelId) {
-        this.modelId = modelId;
+    private GetFilamentRequest(String filamentId) {
+        this.filamentId = filamentId;
     }
 
-    public String getModelId() {
-        return modelId;
+    public String getFilamentId() {
+        return filamentId;
     }
 
     //CHECKSTYLE:OFF:BUILDER
     public static  Builder builder() { return new Builder(); }
 
     public static class Builder {
-        private String modelId;
+        private String filamentId;
 
 
-        public Builder withModelId(String modelId) {
-            this.modelId = modelId;
+        public Builder withFilamentId(String filamentId) {
+            this.filamentId = filamentId;
             return this;
         }
 
-        public GetModelRequest build() { return new GetModelRequest(modelId); }
+        public GetFilamentRequest build() { return new GetFilamentRequest(filamentId); }
     }
 }

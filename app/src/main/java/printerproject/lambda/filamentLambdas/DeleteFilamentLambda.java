@@ -1,23 +1,26 @@
-package printerproject.lambda;
+package printerproject.lambda.filamentLambdas;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import printerproject.requests.modelRequests.DeleteModelRequest;
-import printerproject.results.modelResults.DeleteModelResult;
+import printerproject.lambda.LambdaActivityRunner;
+import printerproject.lambda.LambdaRequest;
+import printerproject.lambda.LambdaResponse;
+import printerproject.requests.filamentRequests.DeleteFilamentRequest;
+import printerproject.results.filamentResults.DeleteFilamentResult;
 
-public class DeleteModelLambda
-        extends LambdaActivityRunner<DeleteModelRequest, DeleteModelResult>
-        implements RequestHandler<LambdaRequest<DeleteModelRequest>, LambdaResponse> {
+public class DeleteFilamentLambda
+        extends LambdaActivityRunner<DeleteFilamentRequest, DeleteFilamentResult>
+        implements RequestHandler<LambdaRequest<DeleteFilamentRequest>, LambdaResponse> {
 
     @Override
-    public LambdaResponse handleRequest(LambdaRequest<DeleteModelRequest> input, Context context) {
+    public LambdaResponse handleRequest(LambdaRequest<DeleteFilamentRequest> input, Context context) {
         return super.runActivity(
                 () -> input.fromPath(path ->
-                        DeleteModelRequest.builder()
-                                .withModelId(path.get("modelId"))
+                        DeleteFilamentRequest.builder()
+                                .withFilamentId(path.get("filamentId"))
                                 .build()),
                 (request, serviceComponent) ->
-                        serviceComponent.provideDeleteModelActivity().handleRequest(request)
+                        serviceComponent.provideDeleteFilamentActivity().handleRequest(request)
         );
     }
 }

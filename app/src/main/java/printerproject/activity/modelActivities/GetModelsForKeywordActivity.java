@@ -1,4 +1,4 @@
-package printerproject.activity.filamentActivities;
+package printerproject.activity.modelActivities;
 
 import printerproject.dynamodb.ModelDao;
 import printerproject.dynamodb.models.Model;

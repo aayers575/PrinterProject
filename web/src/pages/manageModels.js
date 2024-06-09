@@ -1,10 +1,10 @@
 import Authenticator from '../api/authenticator';
-import FilamentsClient from '../api/filamentsClient';
+import ModelsClient from '../api/modelsClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
 
-const FILAMENT_LIST_KEY = 'filament-list-key';
+const MODEL_LIST_KEY = 'model-list-key';
 const SEARCH_CRITERIA_KEY = 'search-criteria';
 const SEARCH_RESULTS_KEY = 'search-results';
 const EMPTY_DATASTORE_STATE = {
@@ -13,11 +13,11 @@ const EMPTY_DATASTORE_STATE = {
 };
 
 
-class ManageFilaments extends BindingClass {
+class ManageModels extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['editFilament', 'mount', 'editButton', 'addFilament', 'addButton', 'deleteButton',
-         'deleteFilament', 'search', 'displaySearchResults', 'getHTMLForSearchResults'], this);
+        this.bindClassMethods(['editModel', 'mount', 'editButton', 'addModel', 'addButton', 'deleteButton',
+         'deleteModel', 'search', 'displaySearchResults', 'getHTMLForSearchResults'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
         this.header = new Header(this.dataStore);
         this.dataStore.addChangeListener(this.displaySearchResults);
@@ -29,7 +29,7 @@ class ManageFilaments extends BindingClass {
         document.getElementById('add-btn').addEventListener('click', this.addButton);
         document.getElementById('delete-btn').addEventListener('click', this.deleteButton);
         document.getElementById('search-btn').addEventListener('click', this.search);
-        this.filamentsClient = new FilamentsClient();
+        this.modelsClient = new ModelsClient();
         this.header.addHeaderToPage();
     }
 
@@ -38,11 +38,11 @@ class ManageFilaments extends BindingClass {
         evt.preventDefault();
 
         const previousSearchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
-        const searchCriteria = document.getElementById('search_color').value;
+        const searchCriteria = document.getElementById('search_keyword').value;
 
 
         if (searchCriteria) {
-            const results = await this.filamentsClient.getMultipleFilaments(searchCriteria);
+            const results = await this.modelsClient.getMultipleModels(searchCriteria);
             this.dataStore.setState({
                 [SEARCH_CRITERIA_KEY]: searchCriteria,
                 [SEARCH_RESULTS_KEY]: results,
@@ -84,16 +84,16 @@ class ManageFilaments extends BindingClass {
             return '<h4>No results found</h4>';
         }
 
-        let html = '<table><tr><th>Id</th><th>Color</th><th>Material</th><th>Length</th></tr>';
+        let html = '<table><tr><th>Id</th><th>Keyword</th><th>Link</th><th>Length</th></tr>';
         for (const res of searchResults) {
             html += `
             <tr>
                 <td>
-                    <a href="filaments.html?id=${res.id}">${res.filamentId}</a>
+                    <a href="models.html?id=${res.id}">${res.modelId}</a>
                 </td>
-                <td>${res.color}</td>
-                <td>${res.material}</td>
-                <td>${res.materialRemaining}</td>
+                <td>${res.keyword}</td>
+                <td>${res.link}</td>
+                <td>${res.linkRemaining}</td>
             </tr>`;
         }
         html += '</table>';
@@ -102,45 +102,45 @@ class ManageFilaments extends BindingClass {
     }
 
     async editButton() {
-        if(document.getElementById('filament-id').value == "" || document.getElementById('filament-color').value == "" ||
-        document.getElementById('filament-material').value == 0 || document.getElementById('filament-length').value == "") {
+        if(document.getElementById('model-id').value == "" || document.getElementById('model-keyword').value == "" ||
+        document.getElementById('model-link').value == 0 || document.getElementById('model-length').value == "") {
             alert("Error: please fill out all fields!")
             return;
         } else {
-           await this.editFilament();
-           alert("Filament updated!");
+           await this.editModel();
+           alert("Model updated!");
         }
     }
 
-    async editFilament() {
-        const filamentId = document.getElementById('filament-id').value;
-        const material = document.getElementById('filament-material').value;
-        const length = document.getElementById('filament-length').value;
+    async editModel() {
+        const modelId = document.getElementById('model-id').value;
+        const link = document.getElementById('model-link').value;
+        const length = document.getElementById('model-length').value;
         const isActive = document.getElementById('add-isActive').value;
-        const color = document.getElementById('filament-color').value;
+        const keyword = document.getElementById('model-keyword').value;
 
-            await this.filamentsClient.editFilament(filamentId, material, length, isActive, color)
+            await this.modelsClient.editModel(modelId, link, length, isActive, keyword)
 
     }
 
     async addButton() {
-        if(document.getElementById('add-filament-color').value == "" ||
-        document.getElementById('add-filament-material').value == 0 || document.getElementById('add-filament-length').value == "") {
+        if(document.getElementById('add-model-keyword').value == "" ||
+        document.getElementById('add-model-link').value == 0 || document.getElementById('add-model-length').value == "") {
             alert("Error: please fill out all fields!")
             return;
         } else {
-           await this.addFilament();
-           alert("Filament added!");
+           await this.addModel();
+           alert("Model added!");
         }
     }
 
-    async addFilament() {
-        const material = document.getElementById('add-filament-material').value;
-        const materialRemaining = document.getElementById('add-filament-length').value;
+    async addModel() {
+        const link = document.getElementById('add-model-link').value;
+        const linkRemaining = document.getElementById('add-model-length').value;
         const isActive = document.getElementById('add-isActive').value;
-        const color = document.getElementById('add-filament-color').value;
+        const keyword = document.getElementById('add-model-keyword').value;
 
-            await this.filamentsClient.addFilament(material, materialRemaining, isActive, color)
+            await this.modelsClient.addModel(link, linkRemaining, isActive, keyword)
 
     }
 
@@ -149,23 +149,23 @@ class ManageFilaments extends BindingClass {
             alert("Error: please fill out all fields!")
             return;
         } else {
-           await this.deleteFilament();
-           alert("Filament deleted!");
+           await this.deleteModel();
+           alert("Model deleted!");
         }
     }
 
-    async deleteFilament() {
-        const color = new URLSearchParams(window.location.search).get('color');
-        const filamentId = document.getElementById('delete-id').value;
-        await this.filamentsClient.deleteFilament(color, filamentId)
+    async deleteModel() {
+        const keyword = new URLSearchParams(window.location.search).get('keyword');
+        const modelId = document.getElementById('delete-id').value;
+        await this.modelsClient.deleteModel(keyword, modelId)
     }
 
 
 
 }
 const main = async () => {
-    const manageFilaments = new ManageFilaments();
-    manageFilaments.mount();
+    const manageModels = new ManageModels();
+    manageModels.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

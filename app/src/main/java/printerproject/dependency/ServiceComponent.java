@@ -1,14 +1,8 @@
 package printerproject.dependency;
 
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import dagger.Component;
-import printerproject.activity.modelActivities.CreateModelActivity;
-import printerproject.activity.modelActivities.DeleteModelActivity;
-import printerproject.activity.modelActivities.GetModelActivity;
-import printerproject.activity.modelActivities.UpdateModelActivity;
-import printerproject.requests.modelRequests.CreateModelRequest;
-import printerproject.requests.modelRequests.DeleteModelRequest;
-import printerproject.requests.modelRequests.UpdateModelRequest;
+import printerproject.activity.filamentActivities.*;
+import printerproject.activity.modelActivities.*;
 
 import javax.inject.Singleton;
 
@@ -30,4 +24,16 @@ public interface ServiceComponent {
     UpdateModelActivity provideUpdateModelActivity();
 
     CreateModelActivity provideCreateModelActivity();
+
+    CreateFilamentActivity provideCreateFilamentActivity();
+
+    DeleteFilamentActivity provideDeleteFilamentActivity();
+
+    GetFilamentActivity provideGetFilamentActivity();
+
+    UpdateFilamentActivity provideUpdateFilamentActivity();
+
+    GetModelsForKeywordActivity provideGetModelsForKeywordActivity();
+
+    GetFilamentForColorActivity provideGetFilamentsForColorActivity();
 }

@@ -1,27 +1,27 @@
 package printerproject.results.filamentResults;
 
-import printerproject.dynamodb.models.Model;
+import printerproject.dynamodb.models.Filament;
 
-public class UpdateModelResult {
-    private final Model model;
+public class UpdateFilamentResult {
+    private final Filament filament;
 
-    private UpdateModelResult(Model model) { this.model = model; }
+    private UpdateFilamentResult(Filament filament) { this.filament = filament; }
 
-    public Model getModel() {
-        return model;
+    public Filament getFilament() {
+        return filament;
     }
 
     //CHECKSTYLE:OFF:Builder
     public static Builder builder() { return new Builder(); }
 
     public static class Builder {
-        private Model model;
+        private Filament filament;
 
-        public Builder withModel(Model model) {
-            this.model = model;
+        public Builder withFilament(Filament filament) {
+            this.filament = filament;
             return this;
         }
 
-        public UpdateModelResult build() { return new UpdateModelResult(model); }
+        public UpdateFilamentResult build() { return new UpdateFilamentResult(filament); }
     }
 }
