@@ -1,17 +1,17 @@
 :root {
     /* css variables: https://developer.mozilla.org/en-US/docs/Web/CSS/var */
-    --primary-color: #5D5E5E;
-    --secondary-color: #ffffff;
-    --tertiary-color: #2a3bcf;
+    --primary-color: #000000;
+    --secondary-color: #F5F5F5;
+    --tertiary-color: #808080;
     /*--tertiary-color: #F5881F; */
     --error-color: #EE3A23;
 }
 
 .background {
-    background-color: #8A8C8F;
+    background-color: #484848;
     margin: 0;
     counter-reset: section;
-    font-family: "Helvetica Neue",Helvetica,sans-serif;
+    font-family: "verdana",verdana,sans-serif;
 }
 
 .header {
@@ -32,6 +32,7 @@
   text-align: center;
   font-weight: bold;
   text-decoration: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -43,6 +44,7 @@
     text-align: center;
     font-weight: bold;
     text-decoration: none;
+    border-radius: 5px;
     cursor: pointer;
   }
 
@@ -55,16 +57,19 @@
     text-align: center;
     font-weight: bold;
     text-decoration: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
 .navButton:hover {
-    background-color: #0077e6;
+    background-color: #181818;
+    border-radius: 5px;
 }
 
 .button-group {
     display: flex;
     justify-content: space-between;
+    border-radius: 5px;
 }
 
 .header_home {
@@ -74,11 +79,12 @@
     text-decoration: none;
     color: var(--secondary-color);
     padding: 4px 6px 2px 6px;
-    background-color:#233a50;
+    background-color:#000000;
+    border-radius: 5px;
 }
 
 .header_home:hover {
-    background-color: #0077e6;
+    background-color: #181818;
 }
 
 .card {
@@ -86,6 +92,7 @@
     background-color: var(--secondary-color);
     margin: 20px;
     padding: 10px 20px;
+    border-radius: 5px;
 }
 
 .error {
@@ -113,6 +120,7 @@
 .card-content .form-field {
     display: flex;
     flex-direction: column;
+    border-radius: 5px;
 }
 
 .tags {

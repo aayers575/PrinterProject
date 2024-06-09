@@ -251,8 +251,186 @@ Resources:
           Properties:
             Path: /models/{modelId}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
+
+  DeleteModelLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.DeleteModelLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /models/{modelId}
+            Method: delete
+
+  UpdateModelLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.UpdateModelLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /models/{modelId}
+            Method: put
+
+  CreateModelLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.CreateModelLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /models
+            Method: post
+
+  GetModelsForKeywordLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.GetModelsForKeywordLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /keywords/{keyword}/models
+            Method: get
+
+  GetFilamentLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.filamentLambdas.GetFilamentLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /filaments/{filamentId}
+            Method: get
+
+  DeleteFilamentLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.filamentLambdas.DeleteFilamentLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /filaments/{filamentId}
+            Method: delete
+
+  UpdateFilamentLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.filamentLambdas.UpdateFilamentLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /filaments/{filamentId}
+            Method: put
+
+  CreateFilamentLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.filamentLambdas.CreateFilamentLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /filaments
+            Method: post
+
+  GetFilamentsForColorLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.filamentLambdas.GetFilamentsForColorLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /colors/{color}/filaments
+            Method: get
 
 
   #-----------------------------------------------------
@@ -283,6 +461,32 @@ Resources:
               KeyType: "RANGE"
           Projection:
             ProjectionType: "ALL"
+
+  FilamentsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "filamentId"
+          AttributeType: "S"
+        - AttributeName: "isActive"
+          AttributeType: "S"
+        - AttributeName: "color"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "filamentId"
+          KeyType: "HASH"
+      BillingMode: PAY_PER_REQUEST
+      TableName: "FilamentsTable"
+      GlobalSecondaryIndexes:
+        - IndexName: "FilamentsSortByColorIndex"
+          KeySchema:
+            - AttributeName: "color"
+              KeyType: "HASH"
+            - AttributeName: "isActive"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "ALL"
+
 
 #-----------------------------------------------------
 # The outputs defined below will be printed

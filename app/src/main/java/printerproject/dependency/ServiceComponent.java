@@ -1,7 +1,8 @@
 package printerproject.dependency;
 
 import dagger.Component;
-import printerproject.activity.modelActivities.GetModelActivity;
+import printerproject.activity.filamentActivities.*;
+import printerproject.activity.modelActivities.*;
 
 import javax.inject.Singleton;
 
@@ -18,4 +19,21 @@ public interface ServiceComponent {
      */
     GetModelActivity provideGetModelActivity();
 
+    DeleteModelActivity provideDeleteModelActivity();
+
+    UpdateModelActivity provideUpdateModelActivity();
+
+    CreateModelActivity provideCreateModelActivity();
+
+    CreateFilamentActivity provideCreateFilamentActivity();
+
+    DeleteFilamentActivity provideDeleteFilamentActivity();
+
+    GetFilamentActivity provideGetFilamentActivity();
+
+    UpdateFilamentActivity provideUpdateFilamentActivity();
+
+    GetModelsForKeywordActivity provideGetModelsForKeywordActivity();
+
+    GetFilamentForColorActivity provideGetFilamentsForColorActivity();
 }

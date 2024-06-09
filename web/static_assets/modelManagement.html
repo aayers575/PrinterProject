@@ -2,19 +2,19 @@
 <html>
 
 <head>
-    <script type="text/javascript" src="assets/manageFilaments.js"></script>
+    <script type="text/javascript" src="assets/manageModels.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body class="background">
 <header class="header" id="header"></header>
 <div class="card">
-    <h2>Filament Management</h2>
-    <h3>Search Filament by Color</h3>
+    <h2>Model Management</h2>
+    <h3>Search Model by Keyword</h3>
     <form class="card-content" id="search-projects-form">
         <p class="form-field">
-            <label>Color</label>
-            <input type="text" class="validated-field" id="search_color" placeholder="-Color here-" autofocus>
+            <label>Keyword</label>
+            <input type="text" class="validated-field" id="search_keyword" placeholder="-Keyword here-" autofocus>
         </p>
     </form>
     <p class="button-group">
@@ -22,17 +22,17 @@
     </p>
 </div>
 <div class="card">
-    <h3>Edit Filament</h3>
+    <h3>Edit Model</h3>
     <label>Id</label>
-    <input type="text" class="validated-field" id="filament-id" placeholder="-Id here-" autofocus>
-    <label>Color</label>
-    <input type="text" class="validated-field" id="filament-color" placeholder="-Color here-" autofocus>
-    <label>Material</label>
-    <input type="text" class="validated-field" id="filament-material" placeholder="-Material here-" autofocus>
+    <input type="text" class="validated-field" id="model-id" placeholder="-Id here-" autofocus>
+    <label>Keyword</label>
+    <input type="text" class="validated-field" id="model-keyword" placeholder="-Keyword here-" autofocus>
+    <label>Link</label>
+    <input type="text" class="validated-field" id="model-link" placeholder="-Link here-" autofocus>
     <label>Length</label>
-    <input type="text" class="validated-field" id="filament-length" placeholder="-Length here-" autofocus>
+    <input type="text" class="validated-field" id="model-length" placeholder="-Length here-" autofocus>
     <label>Active?</label>
-    <select color="status" class="validated-field" id="isActive">
+    <select keyword="status" class="validated-field" id="isActive">
         <option value="Yes">Yes</option>
         <option value="No">No</option>
     </select>
@@ -41,15 +41,15 @@
     </p>
 </div>
 <div class="card">
-    <h3>Add Filament</h3>
-    <label>Color</label>
-    <input type="text" class="validated-field" id="add-filament-color" placeholder="-Color here-" autofocus>
-    <label>Material</label>
-    <input type="text" class="validated-field" id="add-filament-material" placeholder="-Material here-" autofocus>
+    <h3>Add Model</h3>
+    <label>Keyword</label>
+    <input type="text" class="validated-field" id="add-model-keyword" placeholder="-Keyword here-" autofocus>
+    <label>Link</label>
+    <input type="text" class="validated-field" id="add-model-link" placeholder="-Link here-" autofocus>
     <label>Length</label>
-    <input type="text" class="validated-field" id="add-filament-length" placeholder="-Length here-" autofocus>
+    <input type="text" class="validated-field" id="add-model-length" placeholder="-Length here-" autofocus>
     <label>Active?</label>
-    <select color="status" class="validated-field" id="add-isActive">
+    <select keyword="status" class="validated-field" id="add-isActive">
         <option value="Yes">Yes</option>
         <option value="No">No</option>
     </select>
@@ -58,7 +58,7 @@
     </p>
 </div>
 <div class="card">
-    <h3>Delete Filament</h3>
+    <h3>Delete Model</h3>
     <label>Id</label>
     <input type="text" class="validated-field" id="delete-id" placeholder="-Id here-" autofocus>
     <p class="button-group">
