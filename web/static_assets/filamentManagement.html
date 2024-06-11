@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="assets/manageFilaments.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body class="background">
+<header class="header" id="header"></header>
+<div class="card">
+    <h2>Filament Management</h2>
+    <h3>Search Filament by Color</h3>
+    <form class="card-content" id="search-projects-form">
+        <p class="form-field">
+            <label>Color</label>
+            <input type="text" class="validated-field" id="search_color" placeholder="-Color here-" autofocus>
+        </p>
+    </form>
+    <p class="button-group">
+        <a href="#" class="button" id="search-btn">Search</a>
+    </p>
+</div>
+<div class="card">
+    <h3>Edit Filament</h3>
+    <label>Id</label>
+    <input type="text" class="validated-field" id="filament-id" placeholder="-Id here-" autofocus>
+    <label>Color</label>
+    <input type="text" class="validated-field" id="filament-color" placeholder="-Color here-" autofocus>
+    <label>Material</label>
+    <input type="text" class="validated-field" id="filament-material" placeholder="-Material here-" autofocus>
+    <label>Length</label>
+    <input type="text" class="validated-field" id="filament-length" placeholder="-Length here-" autofocus>
+    <label>Active?</label>
+    <select color="status" class="validated-field" id="isActive">
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+    <p class="button-group">
+        <a href="#" class="button" id="edit-btn">Edit</a>
+    </p>
+</div>
+<div class="card">
+    <h3>Add Filament</h3>
+    <label>Color</label>
+    <input type="text" class="validated-field" id="add-filament-color" placeholder="-Color here-" autofocus>
+    <label>Material</label>
+    <input type="text" class="validated-field" id="add-filament-material" placeholder="-Material here-" autofocus>
+    <label>Length</label>
+    <input type="text" class="validated-field" id="add-filament-length" placeholder="-Length here-" autofocus>
+    <label>Active?</label>
+    <select color="status" class="validated-field" id="add-isActive">
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+    <p class="button-group">
+        <a href="#" class="button" id="add-btn">Add</a>
+    </p>
+</div>
+<div class="card">
+    <h3>Delete Filament</h3>
+    <label>Id</label>
+    <input type="text" class="validated-field" id="delete-id" placeholder="-Id here-" autofocus>
+    <p class="button-group">
+        <a href="#" class="button" id="delete-btn">Delete</a>
+    </p>
+</div>
+</div>
+</div>
+<div class="card hidden" id='search-results-container'>
+    <h3>Search Results <span id="search-criteria-display"></span></h3>
+    <div id="search-results-display">
+    </div>
+</div>
+</body>
+
+</html>

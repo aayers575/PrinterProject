@@ -32,20 +32,6 @@ public class FilamentDao {
     }
 
     /**
-     * Retrieves all filament.
-     *
-     * If not found, throws FilamentNotFoundException.
-     *
-     * @param filamentId The filamentId to look up
-     * @return The corresponding Filament if found
-     */
-    public List<Filament> loadAllFilament(String filamentId) {
-        Filament filament = new Filament();
-        DynamoDBQueryExpression<Filament> queryExpression = new DynamoDBQueryExpression<Filament>();
-        return mapper.query(Filament.class, queryExpression);
-    }
-
-    /**
      * Retrieves a filament by filamentId.
      *
      * If not found, throws FilamentNotFoundException.

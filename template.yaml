@@ -125,7 +125,7 @@ Resources:
     Properties:
       DistributionConfig:
         Comment: "Cloudfront distribution for serverless website"
-        DefaultRootObject: "index.html"
+        DefaultRootObject: "filamentManagement.html"
         Enabled: true
         HttpVersion: http2
         PriceClass: PriceClass_100
@@ -237,6 +237,7 @@ Resources:
 
   GetModelLambda:
     Type: AWS::Serverless::Function
+
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: app
@@ -435,7 +436,85 @@ Resources:
             Path: /colors/{color}/filaments
             Method: get
 
+  CreateVoteLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.voteLambdas.CreateVoteLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /votes
+            Method: post
 
+  DeleteVoteLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.voteLambdas.DeleteVoteLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /votes/{voteId}
+            Method: delete
+
+  GetAllVotesLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.voteLambdas.GetAllVotesLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /votes
+            Method: get
+
+  UpdateVoteLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.voteLambdas.UpdateVoteLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        PrinterProject:
+          Type: Api
+          Properties:
+            Path: /votes/{voteId}
+            Method: put
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------

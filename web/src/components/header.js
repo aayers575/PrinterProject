@@ -25,28 +25,26 @@ export default class Header extends BindingClass {
         const siteTitle = this.createSiteTitle();
         const userInfo = this.createUserInfoForHeader(currentUser);
 
-        const navToFilamentManagement = this.createNavButton("Filament Management", 'index.html');
-        const navToModelManagement = this.createNavButton("Model Management", 'modelManagement.html');
         
         const header = document.getElementById('header');
         header.appendChild(siteTitle);
-        header.appendChild(navToFilamentManagement);
-        header.appendChild(navToModelManagement);
+//        header.appendChild(navToFilamentManagement);
+//        header.appendChild(navToModelManagement);
         header.appendChild(userInfo);
     }
 
-    createNavButton(text, htmlTarget) {
-        const button = document.createElement('a');
-        button.classList.add('navButton');
-        button.href = htmlTarget;
-        button.innerText = text;
-
-        button.addEventListener('click', async () => {
-            await clickHandler();
-        });
-
-        return button;
-    }
+//    createNavButton(text, htmlTarget) {
+//        const button = document.createElement('a');
+//        button.classList.add('navButton');
+//        button.href = htmlTarget;
+//        button.innerText = text;
+//
+//        button.addEventListener('click', async () => {
+//            await clickHandler();
+//        });
+//
+//        return button;
+//    }
 
 
 
