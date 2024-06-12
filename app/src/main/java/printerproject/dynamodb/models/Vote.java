@@ -11,7 +11,8 @@ import java.util.Objects;
 public class Vote {
     private String voteId;
     private String isActive;
-    private Map<String, String> votesByKeyword;
+    private Map<Integer, String> votesByKeyword;
+    private Map<Integer, String> votesByColor;
 
     @DynamoDBHashKey(attributeName = "voteId")
     public String getVoteId() {
