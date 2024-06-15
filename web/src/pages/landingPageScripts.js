@@ -38,6 +38,7 @@ class LandingPageScripts extends BindingClass {
             document.getElementById('title').innerText = `Pick an option`;
             document.getElementById('filament-btn').hidden = false;
             document.getElementById('model-btn').hidden = false;
+            document.getElementById('pick-btn').hidden = false;
         } else {
             document.getElementById('title').innerText = `Welcome to Printer Management Console. Please log-in at the top right to continue.`;
         }

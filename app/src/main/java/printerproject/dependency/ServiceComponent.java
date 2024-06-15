@@ -5,8 +5,7 @@ import dagger.Component;
 import printerproject.activity.filamentActivities.*;
 import printerproject.activity.modelActivities.*;
 import printerproject.activity.voteActivities.*;
-import printerproject.lambda.voteLambdas.GetVoteLambda;
-import printerproject.requests.voteRequests.*;
+import printerproject.requests.filamentRequests.GetAllFilamentsRequest;
 
 import javax.inject.Singleton;
 
@@ -45,9 +44,10 @@ public interface ServiceComponent {
 
     DeleteVoteActivity provideDeleteVoteActivity();
 
-    GetAllVotesActivity provideGetAllVotesActivity();
+    GetAllFilamentsActivity provideGetAllFilamentsActivity();
 
     GetVoteActivity provideGetVoteActivity();
 
     UpdateVoteActivity provideUpdateVoteActivity();
+
 }

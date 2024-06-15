@@ -10,6 +10,7 @@ const SEARCH_RESULTS_KEY = 'search-results';
 const EMPTY_DATASTORE_STATE = {
     [SEARCH_CRITERIA_KEY]: '',
     [SEARCH_RESULTS_KEY]: [],
+    [FILAMENT_LIST_KEY]: []
 };
 
 
@@ -17,12 +18,11 @@ class ManageFilaments extends BindingClass {
     constructor() {
         super();
         this.bindClassMethods(['editFilament', 'mount', 'editButton', 'addFilament', 'addButton', 'deleteButton',
-         'deleteFilament', 'search', 'displaySearchResults', 'getHTMLForSearchResults'], this);
+         'deleteFilament', 'search', 'populateSearchTable', 'displaySearchResults', 'getHTMLForSearchResults', 'populateTable', 'startupActivities'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
         this.header = new Header(this.dataStore);
         this.dataStore.addChangeListener(this.displaySearchResults);
     }
-
 
     mount() {
         document.getElementById('edit-btn').addEventListener('click', this.editButton);
@@ -31,6 +31,51 @@ class ManageFilaments extends BindingClass {
         document.getElementById('search-btn').addEventListener('click', this.search);
         this.filamentsClient = new FilamentsClient();
         this.header.addHeaderToPage();
+        this.startupActivities();
+    }
+
+    async startupActivities() {
+            this.dataStore.set([FILAMENT_LIST_KEY], await this.filamentsClient.getAllFilaments());
+            await this.populateTable();
+            var preloads = document.getElementsByClassName('preload')
+            for (var i= 0; i < preloads.length; i++) {
+                preloads[i].hidden=false
+            }
+            document.getElementById('loading').hidden=true;
+    }
+
+    async populateTable() {
+        var table = document.getElementById("filament-table");
+        var oldTableBody = table.getElementsByTagName('tbody')[0];
+        var newTableBody = document.createElement('tbody');
+        var filamentList = this.dataStore.get(FILAMENT_LIST_KEY);
+
+
+        for(const filament of filamentList) {
+                var row = newTableBody.insertRow(0);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                cell1.innerHTML = filament.color;
+                cell2.innerHTML = filament.material;
+                cell3.innerHTML = filament.materialRemaining;
+                cell4.innerHTML = filament.isActive;
+                var createClickHandler = function(row) {
+                    return function() {
+                        for (var i = 0; i < table.rows.length; i++){
+                            table.rows[i].removeAttribute('class');
+                        }
+                        row.setAttribute('class','selectedRow')
+                         document.getElementById('filament-id').value = filament.filamentId
+                         document.getElementById('filament-color').value = filament.color
+                         document.getElementById('filament-material').value = filament.material
+                         document.getElementById('filament-length').value = filament.materialRemaining;
+                    };
+                };
+                row.onclick = createClickHandler(row);
+        }
+        oldTableBody.parentNode.replaceChild(newTableBody, oldTableBody);
     }
 
     async search(evt) {
@@ -65,15 +110,46 @@ class ManageFilaments extends BindingClass {
 
         if (searchCriteria === '') {
             searchResultsContainer.classList.add('hidden');
-            searchCriteriaDisplay.innerHTML = '';
-            searchResultsDisplay.innerHTML = '';
         } else {
             searchResultsContainer.classList.remove('hidden');
-            //searchCriteriaDisplay.innerHTML = `"${searchCriteria}"`;
-            searchResultsDisplay.innerHTML = this.getHTMLForSearchResults(searchResults);
+            this.populateSearchTable();
         }
     }
 
+    async populateSearchTable() {
+        var table = document.getElementById("search-table");
+        var oldTableBody = table.getElementsByTagName('tbody')[0];
+        var newTableBody = document.createElement('tbody');
+        var filamentList = this.dataStore.get(SEARCH_RESULTS_KEY);
+
+
+        for(const filament of filamentList) {
+                var row = newTableBody.insertRow(0);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                cell1.innerHTML = filament.color;
+                cell2.innerHTML = filament.material;
+                cell3.innerHTML = filament.materialRemaining;
+                cell4.innerHTML = filament.isActive;
+                var createClickHandler = function(row) {
+                    return function() {
+                        for (var i = 0; i < table.rows.length; i++){
+                            table.rows[i].removeAttribute('class');
+                        }
+                        row.setAttribute('class','selectedRow')
+                         document.getElementById('filament-id').value = filament.filamentId
+                         document.getElementById('filament-color').value = filament.color
+                         document.getElementById('filament-material').value = filament.material
+                         document.getElementById('filament-length').value = filament.materialRemaining;
+                    };
+                };
+                row.onclick = createClickHandler(row);
+        }
+        oldTableBody.parentNode.replaceChild(newTableBody, oldTableBody);
+        document.getElementById('loading1').hidden=true;
+    }
     /**
      * Create appropriate HTML for displaying searchResults on the page.
      * @param searchResults An array of playlists objects to be displayed on the page.
@@ -97,6 +173,7 @@ class ManageFilaments extends BindingClass {
             </tr>`;
         }
         html += '</table>';
+
 
         return html;
     }
@@ -145,7 +222,7 @@ class ManageFilaments extends BindingClass {
     }
 
     async deleteButton() {
-        if(document.getElementById('delete-id').value == "") {
+        if(document.getElementById('filament-id').value == "") {
             alert("Error: please fill out all fields!")
             return;
         } else {
@@ -155,9 +232,8 @@ class ManageFilaments extends BindingClass {
     }
 
     async deleteFilament() {
-        const color = new URLSearchParams(window.location.search).get('color');
-        const filamentId = document.getElementById('delete-id').value;
-        await this.filamentsClient.deleteFilament(color, filamentId)
+        const filamentId = document.getElementById('filament-id').value;
+        await this.filamentsClient.deleteFilament(filamentId)
     }
 
 

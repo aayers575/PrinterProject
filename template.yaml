@@ -436,6 +436,26 @@ Resources:
             Path: /colors/{color}/filaments
             Method: get
 
+  GetAllFilamentsLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: printerproject.lambda.filamentLambdas.GetAllFilamentsLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /filaments
+            Method: get
+
   CreateVoteLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -475,26 +495,6 @@ Resources:
           Properties:
             Path: /votes/{voteId}
             Method: delete
-
-  GetAllVotesLambda:
-    Type: AWS::Serverless::Function
-    Properties:
-      Role: !GetAtt AccessRole.Arn
-      CodeUri: app
-      Handler: printerproject.lambda.voteLambdas.GetAllVotesLambda::handleRequest
-      Runtime: java11
-      Architectures:
-        - x86_64
-      MemorySize: 512
-      Environment:
-        Variables:
-          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-      Events:
-        MusicPlaylistService:
-          Type: Api
-          Properties:
-            Path: /votes
-            Method: get
 
   UpdateVoteLambda:
     Type: AWS::Serverless::Function

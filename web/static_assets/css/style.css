@@ -3,12 +3,17 @@
     --primary-color: #000000;
     --secondary-color: #F5F5F5;
     --tertiary-color: #808080;
-    /*--tertiary-color: #F5881F; */
     --error-color: #EE3A23;
 }
 
+@font-face {
+  font-family: "font";
+  src: url('fonts/llpixel3.ttf') format('truetype'),
+}
+
 .background {
-    background-color: #484848;
+background: rgb(122,122,122);
+background: radial-gradient(circle, rgba(122,122,122,1) 0%, rgba(0,0,0,1) 100%, rgba(255,255,255,1) 100%);
     margin: 0;
     counter-reset: section;
     font-family: "verdana",verdana,sans-serif;
@@ -19,7 +24,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--primary-color);
+    background: rgb(157,157,157);
+    background: linear-gradient(175deg, rgba(157,157,157,1) 6%, rgba(56,20,20,1) 19%, rgba(73,79,75,1) 31%, rgba(251,251,251,1) 100%);
     color: var(--secondary-color);
     padding: 10px 20px;
 }
@@ -50,7 +56,7 @@
 
 
 .navButton {
-    background-color: var(--tertiary-color);
+    background-color: var(--transparent);
     border: none;
     color: var(--secondary-color);
     padding: 6px 8px 4px 8px;
@@ -79,8 +85,9 @@
     text-decoration: none;
     color: var(--secondary-color);
     padding: 4px 6px 2px 6px;
-    background-color:#000000;
+    background-color:transparent;
     border-radius: 5px;
+    font-family: "font", sans-serif;
 }
 
 .header_home:hover {
@@ -89,7 +96,8 @@
 
 .card {
     color: var(--primary-color);
-    background-color: var(--secondary-color);
+background: rgb(255,255,255);
+background: linear-gradient(5deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 16%, rgba(255,255,255,1) 26%, rgba(154,154,154,1) 100%);
     margin: 20px;
     padding: 10px 20px;
     border-radius: 5px;

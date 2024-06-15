@@ -22,7 +22,7 @@
     </p>
 </div>
 <div class="card">
-    <h3>Edit Filament</h3>
+    <h3>Edit/Delete Filament</h3>
     <label>Id</label>
     <input type="text" class="validated-field" id="filament-id" placeholder="-Id here-" autofocus>
     <label>Color</label>
@@ -38,6 +38,9 @@
     </select>
     <p class="button-group">
         <a href="#" class="button" id="edit-btn">Edit</a>
+    </p>
+    <p class="button-group">
+        <a href="#" class="button" id="delete-btn">Delete</a>
     </p>
 </div>
 <div class="card">
@@ -57,21 +60,26 @@
         <a href="#" class="button" id="add-btn">Add</a>
     </p>
 </div>
-<div class="card">
-    <h3>Delete Filament</h3>
-    <label>Id</label>
-    <input type="text" class="validated-field" id="delete-id" placeholder="-Id here-" autofocus>
-    <p class="button-group">
-        <a href="#" class="button" id="delete-btn">Delete</a>
-    </p>
-</div>
 </div>
 </div>
 <div class="card hidden" id='search-results-container'>
-    <h3>Search Results <span id="search-criteria-display"></span></h3>
-    <div id="search-results-display">
-    </div>
+    <h2 id = "loading1">Loading, please wait...</h2>
+    <h2 id = "greeting1" hidden = true class="preload">Search Results</h2>
+    <p>
+    <table id = "search-table" hidden = true class="preload">
+        <thead>
+        <tr>
+            <th>Color</th>
+            <th>Material</th>
+            <th>Length</th>
+            <th>Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 </div>
+
 </body>
 
 </html>
