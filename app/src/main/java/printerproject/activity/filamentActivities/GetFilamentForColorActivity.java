@@ -38,7 +38,7 @@ public class GetFilamentForColorActivity {
 
     public GetFilamentsForColorResult handleRequest(final GetFilamentsForColorRequest getFilamentsForColorRequest) {
         List<Filament> filamentList = new ArrayList<>();
-        filamentList = filamentDao.loadFilamentsForColor(getFilamentsForColorRequest.getColor());
+        filamentList = filamentDao.loadFilamentsForColor(getFilamentsForColorRequest.getColor(), getFilamentsForColorRequest.getIsActive());
         return GetFilamentsForColorResult.builder()
                 .withFilamentList(filamentList)
                 .build();

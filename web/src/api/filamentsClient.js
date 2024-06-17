@@ -14,7 +14,7 @@ export default class FilamentsClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'editFilament', 'addFilament', 'deleteFilament', 'getSingleFilament', 'getMultipleFilaments'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'editFilament', 'addFilament', 'deleteFilament', 'getSingleFilament', 'getMultipleFilaments', 'getAllFilaments'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -119,11 +119,10 @@ export default class FilamentsClient extends BindingClass {
             }
         }
 
-    async deleteFilament(orgId, filamentId, material, materialRemaining, isActive, color, errorCallback) {
+    async deleteFilament(filamentId, material, materialRemaining, isActive, color, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can edit filaments");
             const response = await this.axiosClient.delete(`filaments/${filamentId}`, {
-                            orgId: orgId,
                             filamentId: filamentId,
                         }, {
                             headers: {
@@ -136,7 +135,7 @@ export default class FilamentsClient extends BindingClass {
         }
     }
 
-    async getSingleFilament(orgId, filamentId, errorCallback) {
+    async getSingleFilament(filamentId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Encountered token error trying to call Task endpoint.");
             const response = await this.axiosClient.get(`filaments/${filamentId}`, {
@@ -150,10 +149,24 @@ export default class FilamentsClient extends BindingClass {
         }
     }
 
-    async getMultipleFilaments(color, errorCallback) {
+    async getAllFilaments(errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Encountered token error trying to call Filament endpoint.");
-            const response = await this.axiosClient.get(`colors/${color}/filaments`, {
+            const response = await this.axiosClient.get(`filaments`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }});
+            return response.data.filamentList;
+
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+
+    async getMultipleFilaments(color, isActive, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Encountered token error trying to call Filament endpoint.");
+            const response = await this.axiosClient.get(`colors/${color}/isActive/${isActive}/filaments`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }});

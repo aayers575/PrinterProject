@@ -10,7 +10,7 @@ export default class Header extends BindingClass {
 
         const methodsToBind = [
             'addHeaderToPage', 'createSiteTitle', 'createUserInfoForHeader',
-            'createLoginButton', 'createLoginButton', 'createLogoutButton'
+            'createLoginButton', 'createLoginButton', 'createLogoutButton', 'createNavButton'
         ];
         this.bindClassMethods(methodsToBind, this);
 
@@ -25,7 +25,7 @@ export default class Header extends BindingClass {
         const siteTitle = this.createSiteTitle();
         const userInfo = this.createUserInfoForHeader(currentUser);
 
-        const navToFilamentManagement = this.createNavButton("Filament Management", 'index.html');
+        const navToFilamentManagement = this.createNavButton("Filament Management", 'filamentManagement.html');
         const navToModelManagement = this.createNavButton("Model Management", 'modelManagement.html');
         
         const header = document.getElementById('header');

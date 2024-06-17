@@ -2,7 +2,9 @@ package printerproject.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import printerproject.dynamodb.models.Filament;
 import printerproject.dynamodb.models.Filament;
 import printerproject.exceptions.FilamentNotFoundException;
 
@@ -32,20 +34,6 @@ public class FilamentDao {
     }
 
     /**
-     * Retrieves all filament.
-     *
-     * If not found, throws FilamentNotFoundException.
-     *
-     * @param filamentId The filamentId to look up
-     * @return The corresponding Filament if found
-     */
-    public List<Filament> loadAllFilament(String filamentId) {
-        Filament filament = new Filament();
-        DynamoDBQueryExpression<Filament> queryExpression = new DynamoDBQueryExpression<Filament>();
-        return mapper.query(Filament.class, queryExpression);
-    }
-
-    /**
      * Retrieves a filament by filamentId.
      *
      * If not found, throws FilamentNotFoundException.
@@ -61,7 +49,19 @@ public class FilamentDao {
         return filament;
     }
 
-
+    /**
+     * Retrieves all filaments in database.
+     *
+     * If none found, returns an empty list.
+     *
+     * @return A list of Filaments found, if any
+     */
+    public List<Filament> getAllFilaments() {
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+        List<Filament> result = mapper.scan(Filament.class, scanExpression);
+        return result;
+    }
+    
     /**
      * Retrieves all Filaments matching provided color and mode.
      *
@@ -70,13 +70,14 @@ public class FilamentDao {
      * @param color The color to look up
      * @return A list of Filaments found, if any
      */
-    public List<Filament> loadFilamentsForColor(String color) {
+    public List<Filament> loadFilamentsForColor(String color, String isActive) {
         Map<String, AttributeValue> valueMap = new HashMap<>();
         valueMap.put(":color", new AttributeValue(color));
+        valueMap.put(":isActive", new AttributeValue(isActive));
         DynamoDBQueryExpression<Filament> queryExpression = new DynamoDBQueryExpression<Filament>()
                 .withIndexName("FilamentsSortByColorIndex")
                 .withConsistentRead(false)
-                .withKeyConditionExpression("color = :color")
+                .withKeyConditionExpression("color = :color and isActive = :isActive")
                 .withExpressionAttributeValues(valueMap);
         return mapper.query(Filament.class, queryExpression);
     }

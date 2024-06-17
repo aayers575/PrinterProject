@@ -1,5 +1,6 @@
 import Authenticator from '../api/authenticator';
 import ModelsClient from '../api/modelsClient';
+import FilamentsClient from '../api/filamentsClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
@@ -10,6 +11,7 @@ const SEARCH_RESULTS_KEY = 'search-results';
 const EMPTY_DATASTORE_STATE = {
     [SEARCH_CRITERIA_KEY]: '',
     [SEARCH_RESULTS_KEY]: [],
+    [MODEL_LIST_KEY]: []
 };
 
 
@@ -17,7 +19,7 @@ class ManageModels extends BindingClass {
     constructor() {
         super();
         this.bindClassMethods(['editModel', 'mount', 'editButton', 'addModel', 'addButton', 'deleteButton',
-         'deleteModel', 'search', 'displaySearchResults', 'getHTMLForSearchResults'], this);
+         'deleteModel', 'search', 'displaySearchResults','populateSearchTable', 'startupActivities', 'printButton', 'printModel'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
         this.header = new Header(this.dataStore);
         this.dataStore.addChangeListener(this.displaySearchResults);
@@ -28,9 +30,19 @@ class ManageModels extends BindingClass {
         document.getElementById('edit-btn').addEventListener('click', this.editButton);
         document.getElementById('add-btn').addEventListener('click', this.addButton);
         document.getElementById('delete-btn').addEventListener('click', this.deleteButton);
+        document.getElementById('print-btn').addEventListener('click', this.printButton);
         document.getElementById('search-btn').addEventListener('click', this.search);
         this.modelsClient = new ModelsClient();
+        this.filamentsClient = new FilamentsClient();
         this.header.addHeaderToPage();
+        this.startupActivities();
+    }
+
+    async startupActivities() {
+            var preloads = document.getElementsByClassName('preload')
+            for (var i= 0; i < preloads.length; i++) {
+                preloads[i].hidden=false
+            }
     }
 
     async search(evt) {
@@ -65,40 +77,45 @@ class ManageModels extends BindingClass {
 
         if (searchCriteria === '') {
             searchResultsContainer.classList.add('hidden');
-            searchCriteriaDisplay.innerHTML = '';
-            searchResultsDisplay.innerHTML = '';
         } else {
             searchResultsContainer.classList.remove('hidden');
-            //searchCriteriaDisplay.innerHTML = `"${searchCriteria}"`;
-            searchResultsDisplay.innerHTML = this.getHTMLForSearchResults(searchResults);
+            this.populateSearchTable();
         }
     }
 
-    /**
-     * Create appropriate HTML for displaying searchResults on the page.
-     * @param searchResults An array of playlists objects to be displayed on the page.
-     * @returns A string of HTML suitable for being dropped on the page.
-     */
-    getHTMLForSearchResults(searchResults) {
-        if (searchResults.length === 0) {
-            return '<h4>No results found</h4>';
-        }
+    async populateSearchTable() {
+        var table = document.getElementById("search-table");
+        var oldTableBody = table.getElementsByTagName('tbody')[0];
+        var newTableBody = document.createElement('tbody');
+        var modelList = this.dataStore.get(SEARCH_RESULTS_KEY);
 
-        let html = '<table><tr><th>Id</th><th>Keyword</th><th>Link</th><th>Length</th></tr>';
-        for (const res of searchResults) {
-            html += `
-            <tr>
-                <td>
-                    <a href="models.html?id=${res.id}">${res.modelId}</a>
-                </td>
-                <td>${res.keyword}</td>
-                <td>${res.link}</td>
-                <td>${res.linkRemaining}</td>
-            </tr>`;
-        }
-        html += '</table>';
 
-        return html;
+        for(const model of modelList) {
+                var row = newTableBody.insertRow(0);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                cell1.innerHTML = model.keyword;
+                cell2.innerHTML = model.preview;
+                cell3.innerHTML = model.materialUsed;
+                cell4.innerHTML = model.isActive;
+                var createClickHandler = function(row) {
+                    return function() {
+                        for (var i = 0; i < table.rows.length; i++){
+                            table.rows[i].removeAttribute('class');
+                        }
+                        row.setAttribute('class','selectedRow')
+                         document.getElementById('model-id').value = model.modelId
+                         document.getElementById('model-keyword').value = model.keyword
+                         document.getElementById('model-link').value = model.preview
+                         document.getElementById('model-length').value = model.materialUsed;
+                    };
+                };
+                row.onclick = createClickHandler(row);
+        }
+        oldTableBody.parentNode.replaceChild(newTableBody, oldTableBody);
+        document.getElementById('loading1').hidden=true;
     }
 
     async editButton() {
@@ -134,6 +151,21 @@ class ManageModels extends BindingClass {
         }
     }
 
+    async printButton() {
+           await this.printModel();
+           alert("Model printed!");
+    }
+
+    async printModel() {
+        const filamentId = localStorage.getItem("id");
+        const material = localStorage.getItem("material");
+        const length = (localStorage.getItem("weight") - document.getElementById('model-length').value);
+        const isActive = localStorage.getItem("active");
+        const color = localStorage.getItem("color");
+
+        await this.filamentsClient.editFilament(filamentId, material, length, isActive, color);
+    }
+
     async addModel() {
         const link = document.getElementById('add-model-link').value;
         const linkRemaining = document.getElementById('add-model-length').value;
@@ -145,7 +177,7 @@ class ManageModels extends BindingClass {
     }
 
     async deleteButton() {
-        if(document.getElementById('delete-id').value == "") {
+        if(document.getElementById('model-id').value == "") {
             alert("Error: please fill out all fields!")
             return;
         } else {
@@ -156,7 +188,7 @@ class ManageModels extends BindingClass {
 
     async deleteModel() {
         const keyword = new URLSearchParams(window.location.search).get('keyword');
-        const modelId = document.getElementById('delete-id').value;
+        const modelId = document.getElementById('model-id').value;
         await this.modelsClient.deleteModel(keyword, modelId)
     }
 
