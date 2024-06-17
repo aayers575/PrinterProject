@@ -74,7 +74,8 @@ background: radial-gradient(circle, rgba(122,122,122,1) 0%, rgba(0,0,0,1) 100%, 
 
 .button-group {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 10px;
     border-radius: 5px;
 }
 

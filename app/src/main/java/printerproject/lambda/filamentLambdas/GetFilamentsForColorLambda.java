@@ -18,6 +18,7 @@ public class GetFilamentsForColorLambda
                 () -> input.fromPath(path ->
                         GetFilamentsForColorRequest.builder()
                                 .withColor(path.get("color"))
+                                .withIsActive(path.get("isActive"))
                                 .build()),
                 (request, serviceComponent) ->
                         serviceComponent.provideGetFilamentsForColorActivity().handleRequest(request)

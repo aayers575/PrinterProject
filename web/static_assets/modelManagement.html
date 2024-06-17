@@ -9,9 +9,16 @@
 <body class="background">
 <header class="header" id="header"></header>
 <div class="card">
+    <form class="card-content" id="filament">
+    <script>
+        document.getElementById("filament").innerHTML = "Selected Filament: " + localStorage.getItem("color")
+        + " " + localStorage.getItem("material") + " " + localStorage.getItem("weight") + "g";
+    </script>
+</div>
+<div class="card">
     <h2>Model Management</h2>
     <h3>Search Model by Keyword</h3>
-    <form class="card-content" id="search-projects-form">
+    <form class="card-content" id="search-models-form">
         <p class="form-field">
             <label>Keyword</label>
             <input type="text" class="validated-field" id="search_keyword" placeholder="-Keyword here-" autofocus>
@@ -22,15 +29,15 @@
     </p>
 </div>
 <div class="card">
-    <h3>Edit Model</h3>
+    <h3>Edit/Delete/Print Model</h3>
     <label>Id</label>
     <input type="text" class="validated-field" id="model-id" placeholder="-Id here-" autofocus>
     <label>Keyword</label>
     <input type="text" class="validated-field" id="model-keyword" placeholder="-Keyword here-" autofocus>
     <label>Link</label>
     <input type="text" class="validated-field" id="model-link" placeholder="-Link here-" autofocus>
-    <label>Length</label>
-    <input type="text" class="validated-field" id="model-length" placeholder="-Length here-" autofocus>
+    <label>Weight</label>
+    <input type="text" class="validated-field" id="model-length" placeholder="-Weight here-" autofocus>
     <label>Active?</label>
     <select keyword="status" class="validated-field" id="isActive">
         <option value="Yes">Yes</option>
@@ -38,6 +45,8 @@
     </select>
     <p class="button-group">
         <a href="#" class="button" id="edit-btn">Edit</a>
+        <a href="#" class="button" id="delete-btn">Delete</a>
+        <a href="#" class="button" id="print-btn">Print</a>
     </p>
 </div>
 <div class="card">
@@ -46,8 +55,8 @@
     <input type="text" class="validated-field" id="add-model-keyword" placeholder="-Keyword here-" autofocus>
     <label>Link</label>
     <input type="text" class="validated-field" id="add-model-link" placeholder="-Link here-" autofocus>
-    <label>Length</label>
-    <input type="text" class="validated-field" id="add-model-length" placeholder="-Length here-" autofocus>
+    <label>Weight</label>
+    <input type="text" class="validated-field" id="add-model-length" placeholder="-Weight here-" autofocus>
     <label>Active?</label>
     <select keyword="status" class="validated-field" id="add-isActive">
         <option value="Yes">Yes</option>
@@ -57,20 +66,24 @@
         <a href="#" class="button" id="add-btn">Add</a>
     </p>
 </div>
-<div class="card">
-    <h3>Delete Model</h3>
-    <label>Id</label>
-    <input type="text" class="validated-field" id="delete-id" placeholder="-Id here-" autofocus>
-    <p class="button-group">
-        <a href="#" class="button" id="delete-btn">Delete</a>
-    </p>
-</div>
 </div>
 </div>
 <div class="card hidden" id='search-results-container'>
-    <h3>Search Results <span id="search-criteria-display"></span></h3>
-    <div id="search-results-display">
-    </div>
+    <h2 id = "loading1">Loading, please wait...</h2>
+    <h2 id = "greeting1" hidden = true class="preload">Search Results</h2>
+    <p>
+    <table id = "search-table" hidden = true class="preload">
+        <thead>
+        <tr>
+            <th>Keyword</th>
+            <th>Link</th>
+            <th>Weight</th>
+            <th>Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 </div>
 </body>
 

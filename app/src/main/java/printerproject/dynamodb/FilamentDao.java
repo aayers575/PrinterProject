@@ -70,13 +70,14 @@ public class FilamentDao {
      * @param color The color to look up
      * @return A list of Filaments found, if any
      */
-    public List<Filament> loadFilamentsForColor(String color) {
+    public List<Filament> loadFilamentsForColor(String color, String isActive) {
         Map<String, AttributeValue> valueMap = new HashMap<>();
         valueMap.put(":color", new AttributeValue(color));
+        valueMap.put(":isActive", new AttributeValue(isActive));
         DynamoDBQueryExpression<Filament> queryExpression = new DynamoDBQueryExpression<Filament>()
                 .withIndexName("FilamentsSortByColorIndex")
                 .withConsistentRead(false)
-                .withKeyConditionExpression("color = :color")
+                .withKeyConditionExpression("color = :color and isActive = :isActive")
                 .withExpressionAttributeValues(valueMap);
         return mapper.query(Filament.class, queryExpression);
     }

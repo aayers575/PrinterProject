@@ -163,10 +163,10 @@ export default class FilamentsClient extends BindingClass {
         }
     }
 
-    async getMultipleFilaments(color, errorCallback) {
+    async getMultipleFilaments(color, isActive, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Encountered token error trying to call Filament endpoint.");
-            const response = await this.axiosClient.get(`colors/${color}/filaments`, {
+            const response = await this.axiosClient.get(`colors/${color}/isActive/${isActive}/filaments`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }});

@@ -433,7 +433,7 @@ Resources:
         PrinterProject:
           Type: Api
           Properties:
-            Path: /colors/{color}/filaments
+            Path: /colors/{color}/isActive/{isActive}/filaments
             Method: get
 
   GetAllFilamentsLambda:
