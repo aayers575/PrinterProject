@@ -23,18 +23,8 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    createPlaylist: path.resolve(__dirname, 'src', 'pages', 'createPlaylist.js'),
-    viewPlaylist: path.resolve(__dirname, 'src', 'pages', 'viewPlaylist.js'),
-    searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
-    landingPageScripts: path.resolve(__dirname, 'src', 'pages', 'landingPageScripts.js'),
-    newRoleScripts: path.resolve(__dirname, 'src', 'pages', 'newRoleScripts.js'),
-    assignedTaskListScripts: path.resolve(__dirname, 'src', 'pages', 'assignedTaskListScripts.js'),
-    viewProjects: path.resolve(__dirname, 'src', 'pages', 'viewProjects.js'),
-    projectDetailScript: path.resolve(__dirname, 'src', 'pages', 'projectDetailScript.js'),
-    taskDetailScripts: path.resolve(__dirname, 'src', 'pages', 'taskDetailScripts.js'),
     manageFilaments: path.resolve(__dirname, 'src', 'pages', 'manageFilaments.js'),
     manageModels: path.resolve(__dirname, 'src', 'pages', 'manageModels.js'),
-    userManagementScripts: path.resolve(__dirname, 'src', 'pages', 'userManagementScripts.js'),
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),

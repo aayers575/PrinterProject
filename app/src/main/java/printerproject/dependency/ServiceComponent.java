@@ -4,7 +4,6 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import dagger.Component;
 import printerproject.activity.filamentActivities.*;
 import printerproject.activity.modelActivities.*;
-import printerproject.activity.voteActivities.*;
 import printerproject.requests.filamentRequests.GetAllFilamentsRequest;
 
 import javax.inject.Singleton;
@@ -40,14 +39,6 @@ public interface ServiceComponent {
 
     GetFilamentForColorActivity provideGetFilamentsForColorActivity();
 
-    CreateVoteActivity provideCreateVoteActivity();
-
-    DeleteVoteActivity provideDeleteVoteActivity();
-
     GetAllFilamentsActivity provideGetAllFilamentsActivity();
-
-    GetVoteActivity provideGetVoteActivity();
-
-    UpdateVoteActivity provideUpdateVoteActivity();
 
 }
