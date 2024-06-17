@@ -43,6 +43,10 @@ class ManageModels extends BindingClass {
             for (var i= 0; i < preloads.length; i++) {
                 preloads[i].hidden=false
             }
+            if (localStorage.getItem("id") != null) {
+                document.getElementById('filament').hidden = false;
+                document.getElementById('filament-container').hidden = false
+            }
     }
 
     async search(evt) {

@@ -1,5 +1,15 @@
+import { Auth } from 'aws-amplify';
 import UserRoleClient from '../api/userRoleClient';
 import BindingClass from "../util/bindingClass";
+import Authenticator from '../api/authenticator';
+import DataStore from "../util/DataStore";
+
+const COGNITO_NAME_KEY = 'cognito-name';
+const COGNITO_EMAIL_KEY = 'cognito-name-results';
+const EMPTY_DATASTORE_STATE = {
+    [COGNITO_NAME_KEY]: '',
+    [COGNITO_EMAIL_KEY]: '',
+};
 
 /**
  * The header component for the website.
@@ -13,6 +23,8 @@ export default class Header extends BindingClass {
             'createLoginButton', 'createLoginButton', 'createLogoutButton', 'createNavButton'
         ];
         this.bindClassMethods(methodsToBind, this);
+        this.authenticator = new Authenticator();
+        this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
 
         this.client = new UserRoleClient();
     }
@@ -30,8 +42,10 @@ export default class Header extends BindingClass {
         
         const header = document.getElementById('header');
         header.appendChild(siteTitle);
-        header.appendChild(navToFilamentManagement);
-        header.appendChild(navToModelManagement);
+        if (await this.authenticator.isUserLoggedIn() == true) {
+            header.appendChild(navToFilamentManagement);
+            header.appendChild(navToModelManagement);
+        }
         header.appendChild(userInfo);
     }
 

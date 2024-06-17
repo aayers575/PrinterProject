@@ -8,8 +8,8 @@
 
 <body class="background">
 <header class="header" id="header"></header>
-<div class="card">
-    <form class="card-content" id="filament">
+<div class="card" id ="filament-container" hidden = true>
+    <form class="card-content" id="filament" hidden = true>
     <script>
         document.getElementById("filament").innerHTML = "Selected Filament: " + localStorage.getItem("color")
         + " " + localStorage.getItem("material") + " " + localStorage.getItem("weight") + "g";
