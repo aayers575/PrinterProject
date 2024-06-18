@@ -5,7 +5,9 @@ import printerproject.dynamodb.models.Filament;
 public class DeleteFilamentResult {
     private final Filament filament;
 
-    private DeleteFilamentResult(Filament filament) { this.filament = filament; }
+    private DeleteFilamentResult(Filament filament) {
+        this.filament = filament;
+    }
 
     public Filament getFilament() {
         return filament;

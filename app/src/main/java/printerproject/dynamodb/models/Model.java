@@ -1,6 +1,11 @@
 package printerproject.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.Objects;
 
@@ -60,8 +65,12 @@ public class Model {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Model)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Model)) {
+            return false;
+        }
         Model model = (Model) o;
         return Objects.equals(modelId, model.modelId);
     }

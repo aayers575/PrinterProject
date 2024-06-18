@@ -6,11 +6,11 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import printerproject.dynamodb.models.Model;
 import printerproject.exceptions.ModelNotFoundException;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Accesses data for a Model using {@link Model} to interact with the model in DynamoDB.
@@ -76,10 +76,6 @@ public class ModelDao {
         mapper.save(model);
     }
 
-    public boolean checkIfExist(Model model) {
-        Model loaded = mapper.load(Model.class, model.getModelId());
-        return loaded != null;
-    }
 
     /**
      * Removes the provided Model from DynamoDB, if present.

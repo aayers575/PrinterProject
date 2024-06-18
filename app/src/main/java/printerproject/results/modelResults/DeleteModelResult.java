@@ -5,7 +5,9 @@ import printerproject.dynamodb.models.Model;
 public class DeleteModelResult {
     private final Model model;
 
-    private DeleteModelResult(Model model) { this.model = model; }
+    private DeleteModelResult(Model model) {
+        this.model = model;
+    }
 
     public Model getModel() {
         return model;

@@ -14,13 +14,12 @@ public class DeleteFilamentLambda
 
     @Override
     public LambdaResponse handleRequest(LambdaRequest<DeleteFilamentRequest> input, Context context) {
-        return super.runActivity(
-                () -> input.fromPath(path ->
-                        DeleteFilamentRequest.builder()
-                                .withFilamentId(path.get("filamentId"))
-                                .build()),
-                (request, serviceComponent) ->
-                        serviceComponent.provideDeleteFilamentActivity().handleRequest(request)
+        return super.runActivity(() -> input.fromPath(path ->
+                DeleteFilamentRequest.builder()
+                        .withFilamentId(path.get("filamentId"))
+                        .build()),
+            (request, serviceComponent) ->
+                    serviceComponent.provideDeleteFilamentActivity().handleRequest(request)
         );
     }
 }

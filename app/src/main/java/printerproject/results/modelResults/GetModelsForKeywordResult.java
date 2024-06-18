@@ -7,7 +7,9 @@ import java.util.List;
 public class GetModelsForKeywordResult {
     private final List<Model> models;
 
-    private GetModelsForKeywordResult(List<Model> models) { this.models = models; }
+    private GetModelsForKeywordResult(List<Model> models) {
+        this.models = models;
+    }
 
     public List<Model> getModels() {
         return models;

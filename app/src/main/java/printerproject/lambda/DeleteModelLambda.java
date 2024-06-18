@@ -11,13 +11,12 @@ public class DeleteModelLambda
 
     @Override
     public LambdaResponse handleRequest(LambdaRequest<DeleteModelRequest> input, Context context) {
-        return super.runActivity(
-                () -> input.fromPath(path ->
-                        DeleteModelRequest.builder()
-                                .withModelId(path.get("modelId"))
-                                .build()),
-                (request, serviceComponent) ->
-                        serviceComponent.provideDeleteModelActivity().handleRequest(request)
+        return super.runActivity(() -> input.fromPath(path ->
+                DeleteModelRequest.builder()
+                        .withModelId(path.get("modelId"))
+                        .build()),
+            (request, serviceComponent) ->
+                    serviceComponent.provideDeleteModelActivity().handleRequest(request)
         );
     }
 }

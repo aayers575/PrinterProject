@@ -16,7 +16,9 @@ public class DeleteModelActivity {
      * @param modelDao ModelDao to access the playlist table.
      */
     @Inject
-    public DeleteModelActivity(ModelDao modelDao) { this.modelDao = modelDao; }
+    public DeleteModelActivity(ModelDao modelDao) {
+        this.modelDao = modelDao;
+    }
 
     /**
      * This method handles the incoming request by deleting a model from the database, if it exists.

@@ -5,7 +5,9 @@ import printerproject.dynamodb.models.Model;
 public class GetModelResult {
     private final Model model;
 
-    private GetModelResult(Model model) { this.model = model; }
+    private GetModelResult(Model model) {
+        this.model = model;
+    }
 
     public Model getModel() {
         return model;

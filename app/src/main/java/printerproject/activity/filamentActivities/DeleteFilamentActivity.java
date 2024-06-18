@@ -16,7 +16,9 @@ public class DeleteFilamentActivity {
      * @param filamentDao FilamentDao to access the playlist table.
      */
     @Inject
-    public DeleteFilamentActivity(FilamentDao filamentDao) { this.filamentDao = filamentDao; }
+    public DeleteFilamentActivity(FilamentDao filamentDao) {
+        this.filamentDao = filamentDao;
+    }
 
     /**
      * This method handles the incoming request by deleting a filament from the database, if it exists.

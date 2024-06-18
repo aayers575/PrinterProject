@@ -6,8 +6,8 @@ import printerproject.exceptions.ModelNotFoundException;
 import printerproject.requests.modelRequests.CreateModelRequest;
 import printerproject.results.modelResults.CreateModelResult;
 
-import javax.inject.Inject;
 import java.util.UUID;
+import javax.inject.Inject;
 
 /**
  * Implementation of the CreateModelActivity for the Model endpoint.
@@ -23,10 +23,13 @@ public class CreateModelActivity {
      * @param modelDao ModelDao to access the playlist table.
      */
     @Inject
-    public CreateModelActivity(ModelDao modelDao) { this.modelDao = modelDao; }
+    public CreateModelActivity(ModelDao modelDao) {
+        this.modelDao = modelDao;
+    }
 
     /**
-     * This method handles the incoming request by checking to see if an existing model exists, then replacing it with the provided new content.
+     * This method handles the incoming request by checking to see if an existing model exists,
+     * then replacing it with the provided new content.
      * <p>
      * It then returns the new model.
      * <p>

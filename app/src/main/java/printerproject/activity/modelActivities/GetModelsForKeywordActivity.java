@@ -5,9 +5,9 @@ import printerproject.dynamodb.models.Model;
 import printerproject.requests.modelRequests.GetModelsForKeywordRequest;
 import printerproject.results.modelResults.GetModelsForKeywordResult;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 
 /**
  * Implementation of the GetModelsForKeywordActivity for the Model endpoint.
@@ -23,17 +23,17 @@ public class GetModelsForKeywordActivity {
      * @param modelDao ModelDao to access the playlist table.
      */
     @Inject
-    public GetModelsForKeywordActivity(ModelDao modelDao) { this.modelDao = modelDao; }
+    public GetModelsForKeywordActivity(ModelDao modelDao) {
+        this.modelDao = modelDao;
+    }
 
     /**
-     * This method handles the incoming request by retrieving list of models belong to an keyword from the database, if any exist.
-     * <p>
+     * This method handles the incoming request by retrieving list of models belong to a
+     * keyword from the database, if any exist.
      * It then returns the list.
-     * <p>
      * If no models are found, the method will return an empty list.
-     *
      * @param getModelsForKeywordRequest request object containing the keyword
-     * @return GetModelsForKeywordResult result object containing the API defined {@link java.util.List<Model>}
+     * @return GetModelsForKeywordResult result object containing the API defined
      */
 
     public GetModelsForKeywordResult handleRequest(final GetModelsForKeywordRequest getModelsForKeywordRequest) {

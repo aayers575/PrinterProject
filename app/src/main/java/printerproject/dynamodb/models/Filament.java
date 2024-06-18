@@ -1,6 +1,9 @@
 package printerproject.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.Objects;
@@ -61,8 +64,12 @@ public class Filament {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Filament)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Filament)) {
+            return false;
+        }
         Filament filament = (Filament) o;
         return Objects.equals(filamentId, filament.filamentId);
     }

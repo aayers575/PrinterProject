@@ -7,17 +7,17 @@ import printerproject.results.filamentResults.GetAllFilamentsResult;
 import javax.inject.Inject;
 
 /**
- * Implementation of GetAllFilamentsActivity for Project Binford's GetAllFilaments API
+ * Implementation of GetAllFilamentsActivity for Project Binford's GetAllFilaments API.
  *
- * This API allows a consumer to retrieve a list of Filament objects by filamentId
+ * This API allows a consumer to retrieve a list of Filament objects by filamentId.
  */
 public class GetAllFilamentsActivity {
     private final FilamentDao filamentDao;
 
     /**
-     * Instantiates a new GetAllFilamentsActivity object
+     * Instantiates a new GetAllFilamentsActivity object .
      *
-     * @param filamentDao FilamentDao to interact with the filament table
+     * @param filamentDao FilamentDao to interact with the filament table.
      */
 
     @Inject
@@ -26,8 +26,10 @@ public class GetAllFilamentsActivity {
     }
 
     /**
-     * This method handles the request by retrieving all available filaments from the database
-     * @return GetAllFilamentResults object containing a list of {@link com.nashss.se.musicplaylistservice.dynamodb.models.Filament}
+     * This method handles the request by retrieving all available filaments from the database.
+     * @param getAllFilamentsRequest gets all filaments
+     * @return GetAllFilamentResults object containing a list of
+     * {@link com.nashss.se.musicplaylistservice.dynamodb.models.Filament}
      */
     public GetAllFilamentsResult handleRequest(final GetAllFilamentsRequest getAllFilamentsRequest) {
         return GetAllFilamentsResult.builder()

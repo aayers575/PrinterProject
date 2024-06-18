@@ -101,7 +101,7 @@ class ManageModels extends BindingClass {
                 var cell3 = row.insertCell(2);
                 var cell4 = row.insertCell(3);
                 cell1.innerHTML = model.keyword;
-                cell2.innerHTML = model.preview;
+                cell2.innerHTML = '<a href="' + model.preview + "\">" + model.preview + '</a>';
                 cell3.innerHTML = model.materialUsed;
                 cell4.innerHTML = model.isActive;
                 var createClickHandler = function(row) {

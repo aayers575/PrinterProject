@@ -11,13 +11,12 @@ public class GetModelLambda
 
     @Override
     public LambdaResponse handleRequest(LambdaRequest<GetModelRequest> input, Context context) {
-        return super.runActivity(
-                () -> input.fromPath(path ->
-                        GetModelRequest.builder()
-                                .withModelId(path.get("modelId"))
-                                .build()),
-                (request, serviceComponent) ->
-                        serviceComponent.provideGetModelActivity().handleRequest(request)
+        return super.runActivity(() -> input.fromPath(path ->
+                GetModelRequest.builder()
+                        .withModelId(path.get("modelId"))
+                        .build()),
+            (request, serviceComponent) ->
+                    serviceComponent.provideGetModelActivity().handleRequest(request)
         );
     }
 }
