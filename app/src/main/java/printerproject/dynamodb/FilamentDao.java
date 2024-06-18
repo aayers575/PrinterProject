@@ -5,14 +5,14 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import printerproject.dynamodb.models.Filament;
-import printerproject.dynamodb.models.Filament;
 import printerproject.exceptions.FilamentNotFoundException;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 
 /**
  * Accesses data for a Filament using {@link Filament} to interact with the filament in DynamoDB.
@@ -44,7 +44,8 @@ public class FilamentDao {
     public Filament loadSingleFilament(String filamentId) {
         Filament filament = mapper.load(Filament.class, filamentId);
         if (filament == null) {
-            throw new FilamentNotFoundException(String.format("Could not find filament with filamentId %s", filamentId));
+            throw new FilamentNotFoundException(String.format("Could not find filament with filamentId %s",
+                    filamentId));
         }
         return filament;
     }
@@ -67,6 +68,7 @@ public class FilamentDao {
      *
      * If none found, returns an empty list.
      *
+     * @param isActive active or not
      * @param color The color to look up
      * @return A list of Filaments found, if any
      */
@@ -92,10 +94,6 @@ public class FilamentDao {
         mapper.save(filament);
     }
 
-    public boolean checkIfExist(Filament filament) {
-        Filament loaded = mapper.load(Filament.class, filament.getFilamentId());
-        return loaded != null;
-    }
 
     /**
      * Removes the provided Filament from DynamoDB, if present.

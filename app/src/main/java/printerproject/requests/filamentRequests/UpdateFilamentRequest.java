@@ -12,7 +12,8 @@ public class UpdateFilamentRequest {
     private Integer materialRemaining;
     
 
-    private UpdateFilamentRequest(String filamentId, String isActive, String color, String material, Integer materialRemaining) {
+    private UpdateFilamentRequest(String filamentId, String isActive, String color,
+                                  String material, Integer materialRemaining) {
         this.filamentId = filamentId;
         this.isActive = isActive;
         this.color = color;
@@ -28,14 +29,22 @@ public class UpdateFilamentRequest {
         return isActive;
     }
 
-    public String getColor() { return color; }
+    public String getColor() {
+        return color;
+    }
 
-    public String getMaterial() { return material; }
+    public String getMaterial() {
+        return material;
+    }
 
-    public Integer getMaterialRemaining() { return materialRemaining; }
+    public Integer getMaterialRemaining() {
+        return materialRemaining;
+    }
 
     //CHECKSTYLE:OFF:BUILDER
-    public static  Builder builder() { return new Builder(); }
+    public static  Builder builder() {
+        return new Builder();
+    }
 
     @JsonPOJOBuilder
     public static class Builder {

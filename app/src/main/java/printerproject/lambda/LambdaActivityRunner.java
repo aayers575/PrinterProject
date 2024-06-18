@@ -2,8 +2,8 @@ package printerproject.lambda;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import printerproject.dependency.ServiceComponent;
 import printerproject.dependency.DaggerServiceComponent;
+import printerproject.dependency.ServiceComponent;
 
 import java.util.function.BiFunction;
 import java.util.function.Supplier;

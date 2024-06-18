@@ -14,19 +14,18 @@ public class CreateFilamentLambda
 
     @Override
     public LambdaResponse handleRequest(LambdaRequest<CreateFilamentRequest> input, Context context) {
-        return super.runActivity(
-                () -> {
-                    CreateFilamentRequest unauthenticatedRequest = input.fromBody(CreateFilamentRequest.class);
-                    return input.fromPath(path ->
-                            CreateFilamentRequest.builder()
-                                    .withIsActive(unauthenticatedRequest.getIsActive())
-                                    .withColor(unauthenticatedRequest.getColor())
-                                    .withMaterial(unauthenticatedRequest.getMaterial())
-                                    .withMaterialRemaining(unauthenticatedRequest.getMaterialRemaining())
-                                    .build());
-                },
-                (request, serviceComponent) ->
-                        serviceComponent.provideCreateFilamentActivity().handleRequest(request)
+        return super.runActivity(() -> {
+            CreateFilamentRequest unauthenticatedRequest = input.fromBody(CreateFilamentRequest.class);
+            return input.fromPath(path ->
+                    CreateFilamentRequest.builder()
+                            .withIsActive(unauthenticatedRequest.getIsActive())
+                            .withColor(unauthenticatedRequest.getColor())
+                            .withMaterial(unauthenticatedRequest.getMaterial())
+                            .withMaterialRemaining(unauthenticatedRequest.getMaterialRemaining())
+                            .build());
+            },
+            (request, serviceComponent) ->
+                    serviceComponent.provideCreateFilamentActivity().handleRequest(request)
         );
     }
 }

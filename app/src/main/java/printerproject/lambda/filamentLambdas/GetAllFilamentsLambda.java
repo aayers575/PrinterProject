@@ -14,12 +14,11 @@ public class GetAllFilamentsLambda
 
     @Override
     public LambdaResponse handleRequest(LambdaRequest<GetAllFilamentsRequest> input, Context context) {
-        return super.runActivity(
-                () -> input.fromPath(path ->
-                        GetAllFilamentsRequest.builder()
-                                .build()),
-                (request, serviceComponent) ->
-                        serviceComponent.provideGetAllFilamentsActivity().handleRequest(request)
+        return super.runActivity(() -> input.fromPath(path ->
+                GetAllFilamentsRequest.builder()
+                        .build()),
+            (request, serviceComponent) ->
+                    serviceComponent.provideGetAllFilamentsActivity().handleRequest(request)
         );
     }
 }

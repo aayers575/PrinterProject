@@ -21,7 +21,9 @@ public class GetFilamentActivity {
      * @param filamentDao FilamentDao to access the playlist table.
      */
     @Inject
-    public GetFilamentActivity(FilamentDao filamentDao) { this.filamentDao = filamentDao; }
+    public GetFilamentActivity(FilamentDao filamentDao) {
+        this.filamentDao = filamentDao;
+    }
 
     /**
      * This method handles the incoming request by retrieving a filament from the database, if it exists.
@@ -31,7 +33,8 @@ public class GetFilamentActivity {
      * If the filament does not exist on the database, this method will propagate a FilamentNotFoundException.
      *
      * @param getFilamentRequest request object containing the orgId and filamentId
-     * @return GetFilamentResult result object containing the API defined {@link com.nashss.se.musicplaylistservice.dynamodb.models.Filament}
+     * @return GetFilamentResult result object containing the API defined
+     * {@link com.nashss.se.musicplaylistservice.dynamodb.models.Filament}
      */
 
     public GetFilamentResult handleRequest(final GetFilamentRequest getFilamentRequest) {

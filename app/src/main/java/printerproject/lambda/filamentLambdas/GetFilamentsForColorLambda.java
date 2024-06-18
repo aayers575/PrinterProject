@@ -14,14 +14,13 @@ public class GetFilamentsForColorLambda
 
     @Override
     public LambdaResponse handleRequest(LambdaRequest<GetFilamentsForColorRequest> input, Context context) {
-        return super.runActivity(
-                () -> input.fromPath(path ->
-                        GetFilamentsForColorRequest.builder()
-                                .withColor(path.get("color"))
-                                .withIsActive(path.get("isActive"))
-                                .build()),
-                (request, serviceComponent) ->
-                        serviceComponent.provideGetFilamentsForColorActivity().handleRequest(request)
+        return super.runActivity(() -> input.fromPath(path ->
+                GetFilamentsForColorRequest.builder()
+                        .withColor(path.get("color"))
+                        .withIsActive(path.get("isActive"))
+                        .build()),
+            (request, serviceComponent) ->
+                serviceComponent.provideGetFilamentsForColorActivity().handleRequest(request)
         );
     }
 }

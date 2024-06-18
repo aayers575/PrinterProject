@@ -28,11 +28,17 @@ public class UpdateModelRequest {
         return isActive;
     }
 
-    public String getKeyword() { return keyword; }
+    public String getKeyword() {
+        return keyword;
+    }
 
-    public String getPreview() { return preview; }
+    public String getPreview() {
+        return preview;
+    }
 
-    public Integer getMaterialUsed() { return materialUsed; }
+    public Integer getMaterialUsed() {
+        return materialUsed;
+    }
 
     //CHECKSTYLE:OFF:BUILDER
     public static  Builder builder() { return new Builder(); }

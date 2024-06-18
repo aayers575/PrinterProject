@@ -6,8 +6,8 @@ import printerproject.exceptions.FilamentNotFoundException;
 import printerproject.requests.filamentRequests.CreateFilamentRequest;
 import printerproject.results.filamentResults.CreateFilamentResult;
 
-import javax.inject.Inject;
 import java.util.UUID;
+import javax.inject.Inject;
 
 /**
  * Implementation of the CreateFilamentActivity for the Filament endpoint.
@@ -23,10 +23,13 @@ public class CreateFilamentActivity {
      * @param filamentDao FilamentDao to access the playlist table.
      */
     @Inject
-    public CreateFilamentActivity(FilamentDao filamentDao) { this.filamentDao = filamentDao; }
+    public CreateFilamentActivity(FilamentDao filamentDao) {
+        this.filamentDao = filamentDao;
+    }
 
     /**
-     * This method handles the incoming request by checking to see if an existing filament exists, then replacing it with the provided new content.
+     * This method handles the incoming request by checking to see if an existing filament exists,
+     * then replacing it with the provided new content.
      * <p>
      * It then returns the new filament.
      * <p>

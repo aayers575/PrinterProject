@@ -22,14 +22,22 @@ public class CreateFilamentRequest {
         return isActive;
     }
 
-    public String getColor() { return color; }
+    public String getColor() {
+        return color;
+    }
 
-    public String getMaterial() { return material; }
+    public String getMaterial() {
+        return material;
+    }
 
-    public Integer getMaterialRemaining() { return materialRemaining; }
+    public Integer getMaterialRemaining() {
+        return materialRemaining;
+    }
 
     //CHECKSTYLE:OFF:BUILDER
-    public static  Builder builder() { return new Builder(); }
+    public static  Builder builder() {
+        return new Builder();
+    }
 
     @JsonPOJOBuilder
     public static class Builder {

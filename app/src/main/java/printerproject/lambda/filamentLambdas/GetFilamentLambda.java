@@ -14,13 +14,12 @@ public class GetFilamentLambda
 
     @Override
     public LambdaResponse handleRequest(LambdaRequest<GetFilamentRequest> input, Context context) {
-        return super.runActivity(
-                () -> input.fromPath(path ->
-                        GetFilamentRequest.builder()
-                                .withFilamentId(path.get("filamentId"))
-                                .build()),
-                (request, serviceComponent) ->
-                        serviceComponent.provideGetFilamentActivity().handleRequest(request)
+        return super.runActivity(() -> input.fromPath(path ->
+                GetFilamentRequest.builder()
+                        .withFilamentId(path.get("filamentId"))
+                        .build()),
+            (request, serviceComponent) ->
+                serviceComponent.provideGetFilamentActivity().handleRequest(request)
         );
     }
 }

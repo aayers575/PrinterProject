@@ -14,20 +14,18 @@ public class UpdateFilamentLambda
 
     @Override
     public LambdaResponse handleRequest(LambdaRequest<UpdateFilamentRequest> input, Context context) {
-        return super.runActivity(
-                () -> {
-                    UpdateFilamentRequest unauthenticatedRequest = input.fromBody(UpdateFilamentRequest.class);
-                    return input.fromPath(path ->
-                            UpdateFilamentRequest.builder()
-                                    .withFilamentId(path.get("filamentId"))
-                                    .withIsActive(unauthenticatedRequest.getIsActive())
-                                    .withColor(unauthenticatedRequest.getColor())
-                                    .withMaterial(unauthenticatedRequest.getMaterial())
-                                    .withMaterialRemaining(unauthenticatedRequest.getMaterialRemaining())
-                                    .build());
-                },
-                (request, serviceComponent) ->
-                        serviceComponent.provideUpdateFilamentActivity().handleRequest(request)
+        return super.runActivity(() -> {
+            UpdateFilamentRequest unauthenticatedRequest = input.fromBody(UpdateFilamentRequest.class);
+            return input.fromPath(path ->
+                    UpdateFilamentRequest.builder()
+                            .withFilamentId(path.get("filamentId"))
+                            .withIsActive(unauthenticatedRequest.getIsActive())
+                            .withColor(unauthenticatedRequest.getColor())
+                            .withMaterial(unauthenticatedRequest.getMaterial())
+                            .withMaterialRemaining(unauthenticatedRequest.getMaterialRemaining())
+                            .build());
+            }, (request, serviceComponent) ->
+                serviceComponent.provideUpdateFilamentActivity().handleRequest(request)
         );
     }
 }

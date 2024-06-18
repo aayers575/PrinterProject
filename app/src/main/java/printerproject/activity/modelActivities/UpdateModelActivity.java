@@ -21,10 +21,13 @@ public class UpdateModelActivity {
      * @param modelDao ModelDao to access the playlist table.
      */
     @Inject
-    public UpdateModelActivity(ModelDao modelDao) { this.modelDao = modelDao; }
+    public UpdateModelActivity(ModelDao modelDao) {
+        this.modelDao = modelDao;
+    }
 
     /**
-     * This method handles the incoming request by checking to see if an existing model exists, then replacing it with the provided new content.
+     * This method handles the incoming request by checking to see if an existing
+     * model exists, then replacing it with the provided new content.
      * <p>
      * It then returns the new model.
      * <p>

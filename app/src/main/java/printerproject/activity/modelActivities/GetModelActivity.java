@@ -21,7 +21,9 @@ public class GetModelActivity {
      * @param modelDao ModelDao to access the playlist table.
      */
     @Inject
-    public GetModelActivity(ModelDao modelDao) { this.modelDao = modelDao; }
+    public GetModelActivity(ModelDao modelDao) {
+        this.modelDao = modelDao;
+    }
 
     /**
      * This method handles the incoming request by retrieving a model from the database, if it exists.
@@ -31,7 +33,8 @@ public class GetModelActivity {
      * If the model does not exist on the database, this method will propagate a ModelNotFoundException.
      *
      * @param getModelRequest request object containing the orgId and modelId
-     * @return GetModelResult result object containing the API defined {@link com.nashss.se.musicplaylistservice.dynamodb.models.Model}
+     * @return GetModelResult result object containing the API defined
+     * {@link com.nashss.se.musicplaylistservice.dynamodb.models.Model}
      */
 
     public GetModelResult handleRequest(final GetModelRequest getModelRequest) {

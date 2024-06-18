@@ -11,19 +11,18 @@ public class CreateModelLambda
 
     @Override
     public LambdaResponse handleRequest(LambdaRequest<CreateModelRequest> input, Context context) {
-        return super.runActivity(
-                () -> {
-                    CreateModelRequest unauthenticatedRequest = input.fromBody(CreateModelRequest.class);
-                    return input.fromPath(path ->
-                            CreateModelRequest.builder()
-                                    .withIsActive(unauthenticatedRequest.getIsActive())
-                                    .withKeyword(unauthenticatedRequest.getKeyword())
-                                    .withPreview(unauthenticatedRequest.getPreview())
-                                    .withMaterialUsed(unauthenticatedRequest.getMaterialUsed())
-                                    .build());
-                },
-                (request, serviceComponent) ->
-                        serviceComponent.provideCreateModelActivity().handleRequest(request)
+        return super.runActivity(() -> {
+                CreateModelRequest unauthenticatedRequest = input.fromBody(CreateModelRequest.class);
+                return input.fromPath(path ->
+                        CreateModelRequest.builder()
+                                .withIsActive(unauthenticatedRequest.getIsActive())
+                                .withKeyword(unauthenticatedRequest.getKeyword())
+                                .withPreview(unauthenticatedRequest.getPreview())
+                                .withMaterialUsed(unauthenticatedRequest.getMaterialUsed())
+                                .build());
+            },
+            (request, serviceComponent) ->
+                    serviceComponent.provideCreateModelActivity().handleRequest(request)
         );
     }
 }

@@ -5,7 +5,9 @@ import printerproject.dynamodb.models.Filament;
 public class UpdateFilamentResult {
     private final Filament filament;
 
-    private UpdateFilamentResult(Filament filament) { this.filament = filament; }
+    private UpdateFilamentResult(Filament filament) {
+        this.filament = filament;
+    }
 
     public Filament getFilament() {
         return filament;

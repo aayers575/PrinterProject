@@ -39,7 +39,7 @@ class LandingPageScripts extends BindingClass {
             document.getElementById('filament-btn').hidden = false;
             document.getElementById('model-btn').hidden = false;
         } else {
-            document.getElementById('title').innerText = `Welcome to Printer Management Console. Please log-in at the top right to continue.`;
+            document.getssElementById('title').innerText = `Welcome to Printer Management Console. Please log-in at the top right to continue.`;
         }
     }
 

@@ -7,7 +7,9 @@ import java.util.List;
 public class GetFilamentsForColorResult {
     private final List<Filament> filaments;
 
-    private GetFilamentsForColorResult(List<Filament> filaments) { this.filaments = filaments; }
+    private GetFilamentsForColorResult(List<Filament> filaments) {
+        this.filaments = filaments;
+    }
 
     public List<Filament> getFilaments() {
         return filaments;
