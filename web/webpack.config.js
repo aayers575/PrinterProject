@@ -23,6 +23,7 @@ module.exports = {
     usedExports: true
   },
   entry: {
+    landingPageScripts: path.resolve(__dirname, 'src', 'pages', 'landingPageScripts.js'),
     manageFilaments: path.resolve(__dirname, 'src', 'pages', 'manageFilaments.js'),
     manageModels: path.resolve(__dirname, 'src', 'pages', 'manageModels.js'),
   },
