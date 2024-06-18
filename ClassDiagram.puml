@@ -1,0 +1,148 @@
+@startuml
+left to right direction
+class printerproject.activity.modelActivities.CreateModelActivity {
+- ModelDao modelDao
++ CreateModelResult handleRequest(CreateModelRequest)
+- boolean modelIdExists(Model)
+}
+
+
+class printerproject.dynamodb.DynamoDbClientProvider {
++ {static} AmazonDynamoDB getDynamoDBClient()
++ {static} AmazonDynamoDB getDynamoDBClient(Regions)
+}
+
+class printerproject.dynamodb.FilamentDao {
+- DynamoDBMapper mapper
++ Filament loadSingleFilament(String)
++ List<Filament> getAllFilaments()
++ List<Filament> loadFilamentsForColor(String,String)
++ void writeFilament(Filament)
++ void deleteFilament(Filament)
+}
+
+
+class printerproject.activity.filamentActivities.CreateFilamentActivity {
+- FilamentDao filamentDao
++ CreateFilamentResult handleRequest(CreateFilamentRequest)
+- boolean filamentIdExists(Filament)
+}
+
+
+class printerproject.activity.filamentActivities.UpdateFilamentActivity {
+- FilamentDao filamentDao
++ UpdateFilamentResult handleRequest(UpdateFilamentRequest)
+}
+
+
+class printerproject.activity.filamentActivities.GetAllFilamentsActivity {
+- FilamentDao filamentDao
++ GetAllFilamentsResult handleRequest(GetAllFilamentsRequest)
+}
+
+
+class printerproject.activity.modelActivities.GetModelsForKeywordActivity {
+- ModelDao modelDao
++ GetModelsForKeywordResult handleRequest(GetModelsForKeywordRequest)
+}
+
+
+class printerproject.activity.modelActivities.GetModelActivity {
+- ModelDao modelDao
++ GetModelResult handleRequest(GetModelRequest)
+}
+
+
+class printerproject.dynamodb.models.Filament {
+- String filamentId
+- String color
+- String material
+- String isActive
+- Integer materialRemaining
++ String getFilamentId()
++ void setFilamentId(String)
++ String getColor()
++ void setColor(String)
++ String getMaterial()
++ void setMaterial(String)
++ String getIsActive()
++ void setIsActive(String)
++ Integer getMaterialRemaining()
++ void setMaterialRemaining(Integer)
++ boolean equals(Object)
++ int hashCode()
+}
+
+
+class printerproject.activity.filamentActivities.GetFilamentActivity {
+- FilamentDao filamentDao
++ GetFilamentResult handleRequest(GetFilamentRequest)
+}
+
+
+class printerproject.dynamodb.ModelDao {
+- DynamoDBMapper mapper
++ Model loadSingleModel(String)
++ List<Model> loadModelsForKeyword(String)
++ void writeModel(Model)
++ void deleteModel(Model)
+}
+
+
+class printerproject.activity.modelActivities.UpdateModelActivity {
+- ModelDao modelDao
++ UpdateModelResult handleRequest(UpdateModelRequest)
+}
+
+
+class printerproject.activity.modelActivities.DeleteModelActivity {
+- ModelDao modelDao
++ DeleteModelResult handleRequest(DeleteModelRequest)
+}
+
+
+class printerproject.activity.filamentActivities.DeleteFilamentActivity {
+- FilamentDao filamentDao
++ DeleteFilamentResult handleRequest(DeleteFilamentRequest)
+}
+
+
+class printerproject.dynamodb.models.Model {
+- String modelId
+- String keyword
+- String preview
+- String isActive
+- Integer materialUsed
++ String getModelId()
++ void setModelId(String)
++ String getKeyword()
++ void setKeyword(String)
++ String getPreview()
++ void setPreview(String)
++ String getIsActive()
++ void setIsActive(String)
++ Integer getMaterialUsed()
++ void setMaterialUsed(Integer)
++ boolean equals(Object)
++ int hashCode()
+}
+
+
+class printerproject.activity.filamentActivities.GetFilamentForColorActivity {
+- FilamentDao filamentDao
++ GetFilamentsForColorResult handleRequest(GetFilamentsForColorRequest)
+}
+
+GetModelsForKeywordActivity *-- ModelDao
+GetModelActivity *-- ModelDao
+UpdateModelActivity *-- ModelDao
+DeleteModelActivity *-- ModelDao
+CreateModelActivity *-- ModelDao
+
+DeleteFilamentActivity *-- FilamentDao
+GetAllFilamentsActivity *-- FilamentDao
+UpdateFilamentActivity *-- FilamentDao
+GetFilamentActivity *-- FilamentDao
+GetFilamentForColorActivity *-- FilamentDao
+
+@enduml
