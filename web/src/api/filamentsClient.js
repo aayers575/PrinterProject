@@ -119,16 +119,13 @@ export default class FilamentsClient extends BindingClass {
             }
         }
 
-    async deleteFilament(filamentId, material, materialRemaining, isActive, color, errorCallback) {
+    async deleteFilament(filamentId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can edit filaments");
             const response = await this.axiosClient.delete(`filaments/${filamentId}`, {
-                            filamentId: filamentId,
-                        }, {
                             headers: {
                                 Authorization: `Bearer ${token}`
-                            }
-                        });
+                            }});
             return response.data.filament;
         } catch (error) {
             this.handleError(error, errorCallback)
