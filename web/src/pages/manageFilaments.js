@@ -176,7 +176,7 @@ class ManageFilaments extends BindingClass {
 
     async deleteFilament() {
         const filamentId = document.getElementById('filament-id').value;
-        await this.filamentsClient.deleteFilament(filamentId)
+        await this.filamentsClient.deleteFilament(filamentId);
     }
 
     async setFilament() {

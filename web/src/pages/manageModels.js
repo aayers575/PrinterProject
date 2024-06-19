@@ -193,7 +193,7 @@ class ManageModels extends BindingClass {
     async deleteModel() {
         const keyword = new URLSearchParams(window.location.search).get('keyword');
         const modelId = document.getElementById('model-id').value;
-        await this.modelsClient.deleteModel(keyword, modelId)
+        await this.modelsClient.deleteModel(keyword, modelId);
     }
 
 

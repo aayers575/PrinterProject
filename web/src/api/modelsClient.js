@@ -119,24 +119,20 @@ export default class ModelsClient extends BindingClass {
             }
         }
 
-    async deleteModel(orgId, modelId, preview, materialUsed, isActive, keyword, errorCallback) {
+    async deleteModel(modelId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can edit models");
             const response = await this.axiosClient.delete(`models/${modelId}`, {
-                            orgId: orgId,
-                            modelId: modelId,
-                        }, {
                             headers: {
                                 Authorization: `Bearer ${token}`
-                            }
-                        });
+                            }});
             return response.data.model;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
     }
 
-    async getSingleModel(orgId, modelId, errorCallback) {
+    async getSingleModel(modelId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Encountered token error trying to call Task endpoint.");
             const response = await this.axiosClient.get(`models/${modelId}`, {
