@@ -222,14 +222,6 @@ Resources:
               Action: dynamodb:query
               Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/FilamentsTable/index/FilamentsSortByColorIndex"
 
-        - PolicyName: 'AccessVotesTable'
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action: dynamodb:*
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/VotesTable"
-
 
   #-----------------------------------------------------
   # Lambda Functions Configuration
@@ -237,7 +229,6 @@ Resources:
 
   GetModelLambda:
     Type: AWS::Serverless::Function
-
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: app
